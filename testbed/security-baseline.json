@@ -1,0 +1,91 @@
+{
+  "notice": "APPLICATION DE DEMONSTRATION INTENTIONNELLEMENT VULNERABLE — USAGE DE TEST UNIQUEMENT",
+  "authoritativeSecurityEvidence": false,
+  "evidenceProducedBy": {
+    "trivy": "0.69.3, base de vulnérabilités du 2026-10-07",
+    "owaspDependencyCheck": "12.2.2, cache NVD local, autoUpdate=false"
+  },
+  "comment": "Valeurs issues de scans réels sur l'image et sur l'arbre de dépendances, jamais choisies de mémoire. Les preuves brutes sont dans docs/demo-evidence/.",
+  "scenarios": [
+    {
+      "id": "DEMO-001",
+      "provenance": "DIRECT_EXPLICIT",
+      "scanner": ["trivy", "owasp"],
+      "target": "pom.xml",
+      "package": "org.apache.commons:commons-text",
+      "installedVersion": "1.9",
+      "expectedFinding": "CVE-2022-42889",
+      "severity": "CRITICAL",
+      "cvss3": 9.8,
+      "expectedCandidateVersion": "1.10.0",
+      "fixedVersionSource": "trivy FixedVersion",
+      "expectedInitialState": "DETECTED",
+      "expectedAfterRemediation": "NOT_DETECTED"
+    },
+    {
+      "id": "DEMO-002",
+      "provenance": "PROPERTY_MANAGED",
+      "controllingProperty": "commons-lang3.version",
+      "scanner": ["trivy", "owasp"],
+      "target": "pom.xml",
+      "package": "org.apache.commons:commons-lang3",
+      "installedVersion": "3.12.0",
+      "expectedFinding": "CVE-2025-48924",
+      "severity": "MEDIUM",
+      "cvss3": 5.3,
+      "expectedCandidateVersion": "3.18.0",
+      "fixedVersionSource": "trivy FixedVersion",
+      "expectedInitialState": "DETECTED",
+      "expectedAfterRemediation": "NOT_DETECTED"
+    }
+  ],
+  "detectionOnly": [
+    {
+      "id": "DEMO-003",
+      "detector": "sonarqube",
+      "status": "DETECTION_ONLY",
+      "reason": "La chaîne WF6 n'a pas de stratégie de remédiation de code source qualifiée. Présenté comme détection, jamais comme correction automatique."
+    },
+    {
+      "id": "DEMO-004",
+      "detector": "zap",
+      "status": "DETECTION_ONLY",
+      "reason": "Aucune stratégie automatique indépendante de la source. Exécuté comme DAST réel contre la cible locale, sans prétendre à une fermeture."
+    },
+    {
+      "id": "DEMO-005",
+      "detector": "trivy",
+      "target": "couche de base de l'image",
+      "package": "zlib",
+      "installedVersion": "1.3.2-r0",
+      "observedFinding": "CVE-2026-85091",
+      "fixedVersion": "1.3.2-r1",
+      "status": "DETECTION_ONLY",
+      "reason": "Vulnérabilité de paquet OS. Aucune stratégie de version d'image dans WF6 — détection réelle, correction non automatisée."
+    }
+  ],
+  "negativeControls": [
+    {
+      "id": "NC-1",
+      "fixture": "testbed/controls/LegacyClientContractTest.java.txt",
+      "expected": "APPLICATION_TESTS_FAILED",
+      "mechanism": "Contrat de client historique sur la version exacte de dépendance. Passe à la base, échoue sur tout candidat.",
+      "proves": "Un build vert ne suffit pas : un candidat qui casse une fonctionnalité est rejeté."
+    },
+    {
+      "id": "NC-2",
+      "candidateVersion": "3.14.0",
+      "package": "org.apache.commons:commons-lang3",
+      "expected": "TARGET_FINDING_STILL_PRESENT",
+      "verified": "build PASS, 20 tests PASS, CVE-2025-48924 toujours signalée par OWASP à la version 3.14.0",
+      "proves": "BUILD PASS n'est pas SECURITY PASS."
+    }
+  ],
+  "concurrencyControl": {
+    "id": "NC-3",
+    "target": "pom.xml",
+    "expected": "ONE_SAME_FILE_OWNER",
+    "mechanism": "DEMO-001 et DEMO-002 visent le MÊME fichier cible. L'index partiel unique de Phase 4G n'autorise qu'un écrivain actif par (projectId, targetKey).",
+    "productionDifferentFileSupport": false
+  }
+}

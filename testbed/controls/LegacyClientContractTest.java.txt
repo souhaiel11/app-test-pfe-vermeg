@@ -1,0 +1,54 @@
+// ─────────────────────────────────────────────────────────────────────────────────
+// CONTRÔLE NÉGATIF NC-1 — FIXTURE DE QUALIFICATION, PAS UN TEST DE PRODUCTION.
+//
+// Ce fichier n'est PAS compilé par le build normal : il porte l'extension `.txt`
+// précisément pour ne pas entrer dans la suite de tests. Il est installé
+// temporairement par `testbed/scripts/install-control.sh nc1`, puis retiré.
+//
+// Ce qu'il modélise : un consommateur en aval dont le contrat impose une version
+// exacte de dépendance. C'est une situation réelle et banale — une bibliothèque
+// interne compilée contre une version précise, un plugin qui lit une API retirée.
+//
+// Comportement attendu :
+//   · sur la base vulnérable      → PASSE   (commons-lang3 3.12.x, commons-text 1.9)
+//   · sur n'importe quel candidat → ÉCHOUE  (la version a changé)
+//
+// Conséquence attendue dans la plateforme : le build peut réussir, mais un test
+// fonctionnel échoue, donc le candidat est REJETÉ — pas de VERIFIED, pas d'écriture
+// Git. C'est la preuve que « build vert » ne suffit jamais.
+// ─────────────────────────────────────────────────────────────────────────────────
+package tn.pfe.demo;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+class LegacyClientContractTest {
+
+    /** Version lue dans le manifeste du jar réellement chargé — pas dans le pom. */
+    private static String loadedVersion(Class<?> type) {
+        return type.getPackage().getImplementationVersion();
+    }
+
+    @Test
+    @DisplayName("NC-1 — le client historique exige commons-lang3 3.12.x exactement")
+    void legacyClientRequiresLang3_3_12() {
+        String version = loadedVersion(StringUtils.class);
+        assertNotNull(version, "version de commons-lang3 illisible dans le manifeste");
+        assertTrue(version.startsWith("3.12."),
+            "Contrat du client historique rompu : commons-lang3 chargée en " + version
+                + ", or le contrat impose 3.12.x");
+    }
+
+    @Test
+    @DisplayName("NC-1 — le client historique exige commons-text 1.9 exactement")
+    void legacyClientRequiresText_1_9() {
+        assertEquals("1.9", loadedVersion(StringEscapeUtils.class),
+            "Contrat du client historique rompu : commons-text n'est plus en 1.9");
+    }
+}

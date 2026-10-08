@@ -1,0 +1,1601 @@
+{
+    "reportSchema": "1.1",
+    "scanInfo": {
+        "engineVersion": "12.2.2",
+        "dataSource": [
+{
+                "name": "NVD API Last Checked",
+                "timestamp": "2026-07-10T14:42:24Z"
+            }
+,{
+                "name": "NVD API Last Modified",
+                "timestamp": "2026-07-10T14:41:16Z"
+            }
+        ]
+
+
+    },
+    "projectInfo": {
+        "name": "app-test-pfe-vermeg",
+"groupID":"tn.pfe.demo","artifactID":"app-test-pfe-vermeg","version":"1.0.0",        "reportDate": "2026-10-08T14:44:08.197334723Z",
+        "credits": {
+            "NVD": "This product uses the NVD API but is not endorsed or certified by the NVD. This report contains data retrieved from the National Vulnerability Database: https://nvd.nist.gov",
+            "CISA": "This report may contain data retrieved from the CISA Known Exploited Vulnerability Catalog: https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+            "NPM": "This report may contain data retrieved from the Github Advisory Database (via NPM Audit API): https://github.com/advisories/",
+            "RETIREJS": "This report may contain data retrieved from the RetireJS community: https://retirejs.github.io/retire.js/",
+            "OSSINDEX": "This report may contain data retrieved from the Sonatype Guide OSS Index API: https://www.sonatype.com/products/sonatype-guide/oss-index-users"
+        }
+    },
+    "dependencies": [
+{
+            "isVirtual": false,
+            "fileName": "commons-lang3-3.18.0.jar",
+            "filePath": "\/home\/souhaiel\/.m2\/repository\/org\/apache\/commons\/commons-lang3\/3.18.0\/commons-lang3-3.18.0.jar"
+,"md5": "48b9886957920a4cdb602780ca345087",
+            "sha1": "fb14946f0e39748a6571de0635acbe44e7885491",
+            "sha256": "4eeeae8d20c078abb64b015ec158add383ac581571cddc45c68f0c9ae0230720","description": "\n  Apache Commons Lang, a package of Java utility classes for the\n  classes that are in java.lang's hierarchy, or are considered to be so\n  standard as to justify existence in java.lang.\n\n  The code is tested using the latest revision of the JDK for supported\n  LTS releases: 8, 11, 17 and 21 currently.\n  See https:\/\/github.com\/apache\/commons-lang\/blob\/master\/.github\/workflows\/maven.yml\n  \n  Please ensure your build environment is up-to-date and kindly report any build issues.\n  ","license": "https:\/\/www.apache.org\/licenses\/LICENSE-2.0.txt"            ,"projectReferences": [
+                "app-test-pfe-vermeg:compile"
+            ]
+            ,"includedBy": [
+                { "reference":"pkg:maven\/tn.pfe.demo\/app-test-pfe-vermeg@1.0.0" }
+            ]
+            ,"evidenceCollected": {
+                "vendorEvidence": [
+{
+                            "type": "vendor",
+                            "confidence": "HIGH",
+                            "source": "file",
+                            "name": "name",
+                            "value": "commons-lang3"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "HIGHEST",
+                            "source": "jar",
+                            "name": "package name",
+                            "value": "apache"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "HIGHEST",
+                            "source": "jar",
+                            "name": "package name",
+                            "value": "commons"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "HIGHEST",
+                            "source": "jar",
+                            "name": "package name",
+                            "value": "lang3"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "Manifest",
+                            "name": "automatic-module-name",
+                            "value": "org.apache.commons.lang3"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "Manifest",
+                            "name": "build-jdk-spec",
+                            "value": "21"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "Manifest",
+                            "name": "bundle-docurl",
+                            "value": "https:\/\/commons.apache.org\/proper\/commons-lang\/"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "Manifest",
+                            "name": "bundle-symbolicname",
+                            "value": "org.apache.commons.lang3"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "HIGH",
+                            "source": "Manifest",
+                            "name": "Implementation-Vendor",
+                            "value": "The Apache Software Foundation"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "Manifest",
+                            "name": "multi-release",
+                            "value": "true"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "Manifest",
+                            "name": "specification-vendor",
+                            "value": "The Apache Software Foundation"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "HIGHEST",
+                            "source": "pom",
+                            "name": "artifactid",
+                            "value": "commons-lang3"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "artifactid",
+                            "value": "commons-lang3"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "bayard@apache.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "britter@apache.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "chtompki@apache.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "djones@apache.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "dlr@finemaltcoding.com"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "ggregory at apache.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "jcarman@apache.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "joerg.schaible@gmx.de"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "lguibert@apache.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "oheger@apache.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "pbenedict@apache.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "rdonkin@apache.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "scolebourne@joda.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "stevencaswell@apache.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "bayard"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "britter"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "chtompki"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "djones"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "dlr"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "fredrik"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "ggregory"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "jcarman"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "joehni"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "lguibert"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "mbenson"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "niallp"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "oheger"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "pbenedict"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "rdonkin"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "scaswell"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "scolebourne"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Benedikt Ritter"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Daniel Rall"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Duncan Jones"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Fredrik Westermarck"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Gary Gregory"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Henri Yandell"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "James Carman"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Joerg Schaible"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Loic Guibert"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Matt Benson"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Niall Pemberton"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Oliver Heger"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Paul Benedict"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Rob Tompkins"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Robert Burrell Donkin"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Stephen Colebourne"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Steven Caswell"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer org",
+                            "value": "Carman Consulting, Inc."
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer org",
+                            "value": "CollabNet, Inc."
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer org",
+                            "value": "SITA ATS Ltd"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer org",
+                            "value": "The Apache Software Foundation"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer org URL",
+                            "value": "https:\/\/www.apache.org\/"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "HIGHEST",
+                            "source": "pom",
+                            "name": "groupid",
+                            "value": "org.apache.commons"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "HIGH",
+                            "source": "pom",
+                            "name": "name",
+                            "value": "Apache Commons Lang"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "parent-artifactid",
+                            "value": "commons-parent"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "HIGHEST",
+                            "source": "pom",
+                            "name": "url",
+                            "value": "https:\/\/commons.apache.org\/proper\/commons-lang\/"
+                        }
+                ],
+                "productEvidence": [
+{
+                            "type": "product",
+                            "confidence": "HIGH",
+                            "source": "file",
+                            "name": "name",
+                            "value": "commons-lang3"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "HIGHEST",
+                            "source": "jar",
+                            "name": "package name",
+                            "value": "apache"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "HIGHEST",
+                            "source": "jar",
+                            "name": "package name",
+                            "value": "commons"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "HIGHEST",
+                            "source": "jar",
+                            "name": "package name",
+                            "value": "lang3"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "MEDIUM",
+                            "source": "Manifest",
+                            "name": "automatic-module-name",
+                            "value": "org.apache.commons.lang3"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "Manifest",
+                            "name": "build-jdk-spec",
+                            "value": "21"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "Manifest",
+                            "name": "bundle-docurl",
+                            "value": "https:\/\/commons.apache.org\/proper\/commons-lang\/"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "MEDIUM",
+                            "source": "Manifest",
+                            "name": "Bundle-Name",
+                            "value": "Apache Commons Lang"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "MEDIUM",
+                            "source": "Manifest",
+                            "name": "bundle-symbolicname",
+                            "value": "org.apache.commons.lang3"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "HIGH",
+                            "source": "Manifest",
+                            "name": "Implementation-Title",
+                            "value": "Apache Commons Lang"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "Manifest",
+                            "name": "multi-release",
+                            "value": "true"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "MEDIUM",
+                            "source": "Manifest",
+                            "name": "specification-title",
+                            "value": "Apache Commons Lang"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "HIGHEST",
+                            "source": "pom",
+                            "name": "artifactid",
+                            "value": "commons-lang3"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "bayard@apache.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "britter@apache.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "chtompki@apache.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "djones@apache.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "dlr@finemaltcoding.com"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "ggregory at apache.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "jcarman@apache.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "joerg.schaible@gmx.de"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "lguibert@apache.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "oheger@apache.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "pbenedict@apache.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "rdonkin@apache.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "scolebourne@joda.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "stevencaswell@apache.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "bayard"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "britter"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "chtompki"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "djones"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "dlr"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "fredrik"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "ggregory"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "jcarman"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "joehni"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "lguibert"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "mbenson"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "niallp"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "oheger"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "pbenedict"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "rdonkin"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "scaswell"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "scolebourne"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Benedikt Ritter"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Daniel Rall"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Duncan Jones"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Fredrik Westermarck"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Gary Gregory"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Henri Yandell"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "James Carman"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Joerg Schaible"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Loic Guibert"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Matt Benson"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Niall Pemberton"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Oliver Heger"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Paul Benedict"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Rob Tompkins"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Robert Burrell Donkin"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Stephen Colebourne"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Steven Caswell"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer org",
+                            "value": "Carman Consulting, Inc."
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer org",
+                            "value": "CollabNet, Inc."
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer org",
+                            "value": "SITA ATS Ltd"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer org",
+                            "value": "The Apache Software Foundation"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer org URL",
+                            "value": "https:\/\/www.apache.org\/"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "HIGHEST",
+                            "source": "pom",
+                            "name": "groupid",
+                            "value": "org.apache.commons"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "HIGH",
+                            "source": "pom",
+                            "name": "name",
+                            "value": "Apache Commons Lang"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "parent-artifactid",
+                            "value": "commons-parent"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "url",
+                            "value": "https:\/\/commons.apache.org\/proper\/commons-lang\/"
+                    }
+                ],
+                "versionEvidence": [
+                    {
+                        "type": "version",
+                        "confidence": "HIGH",
+                        "source": "file",
+                        "name": "version",
+                        "value": "3.18.0"
+                    }
+,                    {
+                        "type": "version",
+                        "confidence": "HIGH",
+                        "source": "Manifest",
+                        "name": "Bundle-Version",
+                        "value": "3.18.0"
+                    }
+,                    {
+                        "type": "version",
+                        "confidence": "HIGH",
+                        "source": "Manifest",
+                        "name": "Implementation-Version",
+                        "value": "3.18.0"
+                    }
+,                    {
+                        "type": "version",
+                        "confidence": "LOW",
+                        "source": "pom",
+                        "name": "parent-version",
+                        "value": "3.18.0"
+                    }
+,                    {
+                        "type": "version",
+                        "confidence": "HIGHEST",
+                        "source": "pom",
+                        "name": "version",
+                        "value": "3.18.0"
+                    }
+                ]
+            }
+                ,"packages": [
+                    {
+                        "id": "pkg:maven\/org.apache.commons\/commons-lang3@3.18.0"
+,"confidence": "HIGH"                    }
+            ]                ,"vulnerabilityIds": [
+                {
+                    "id": "cpe:2.3:a:apache:commons_lang:3.18.0:*:*:*:*:*:*:*"
+,"confidence": "HIGHEST","url": "https:\/\/nvd.nist.gov\/vuln\/search#\/nvd\/home?sortOrder=3&sortDirection=2&cpeFilterMode=applicability&resultType=records&cpeName=cpe%3A2.3%3Aa%3Aapache%3Acommons_lang%3A3.18.0%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A"                }
+            ]
+        },{
+            "isVirtual": false,
+            "fileName": "commons-text-1.10.0.jar",
+            "filePath": "\/home\/souhaiel\/.m2\/repository\/org\/apache\/commons\/commons-text\/1.10.0\/commons-text-1.10.0.jar"
+,"md5": "4afc9bfa2d31dbf7330c98fcc954b892",
+            "sha1": "3363381aef8cef2dbc1023b3e3a9433b08b64e01",
+            "sha256": "770cd903fa7b604d1f7ef7ba17f84108667294b2b478be8ed1af3bffb4ae0018","description": "Apache Commons Text is a library focused on algorithms working on strings.","license": "https:\/\/www.apache.org\/licenses\/LICENSE-2.0.txt"            ,"projectReferences": [
+                "app-test-pfe-vermeg:compile"
+            ]
+            ,"includedBy": [
+                { "reference":"pkg:maven\/tn.pfe.demo\/app-test-pfe-vermeg@1.0.0" }
+            ]
+            ,"evidenceCollected": {
+                "vendorEvidence": [
+{
+                            "type": "vendor",
+                            "confidence": "HIGH",
+                            "source": "file",
+                            "name": "name",
+                            "value": "commons-text"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "HIGHEST",
+                            "source": "jar",
+                            "name": "package name",
+                            "value": "apache"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "HIGHEST",
+                            "source": "jar",
+                            "name": "package name",
+                            "value": "commons"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "HIGHEST",
+                            "source": "jar",
+                            "name": "package name",
+                            "value": "text"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "Manifest",
+                            "name": "automatic-module-name",
+                            "value": "org.apache.commons.text"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "Manifest",
+                            "name": "build-jdk-spec",
+                            "value": "1.8"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "Manifest",
+                            "name": "bundle-docurl",
+                            "value": "https:\/\/commons.apache.org\/proper\/commons-text"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "Manifest",
+                            "name": "bundle-symbolicname",
+                            "value": "org.apache.commons.commons-text"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "HIGH",
+                            "source": "Manifest",
+                            "name": "Implementation-Vendor",
+                            "value": "The Apache Software Foundation"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "Manifest",
+                            "name": "specification-vendor",
+                            "value": "The Apache Software Foundation"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "HIGHEST",
+                            "source": "pom",
+                            "name": "artifactid",
+                            "value": "commons-text"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "artifactid",
+                            "value": "commons-text"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "britter@apache.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "chtompki@apache.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "djones@apache.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "ggregory at apache.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "kinow@apache.org"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "britter"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "chtompki"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "djones"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "ggregory"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "kinow"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Benedikt Ritter"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Bruno P. Kinoshita"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Duncan Jones"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Gary Gregory"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Rob Tompkins"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer org",
+                            "value": "The Apache Software Foundation"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "developer org URL",
+                            "value": "https:\/\/www.apache.org\/"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "HIGHEST",
+                            "source": "pom",
+                            "name": "groupid",
+                            "value": "org.apache.commons"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "HIGH",
+                            "source": "pom",
+                            "name": "name",
+                            "value": "Apache Commons Text"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "parent-artifactid",
+                            "value": "commons-parent"
+                        }
+,{
+                            "type": "vendor",
+                            "confidence": "HIGHEST",
+                            "source": "pom",
+                            "name": "url",
+                            "value": "https:\/\/commons.apache.org\/proper\/commons-text"
+                        }
+                ],
+                "productEvidence": [
+{
+                            "type": "product",
+                            "confidence": "HIGH",
+                            "source": "file",
+                            "name": "name",
+                            "value": "commons-text"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "HIGHEST",
+                            "source": "jar",
+                            "name": "package name",
+                            "value": "apache"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "HIGHEST",
+                            "source": "jar",
+                            "name": "package name",
+                            "value": "commons"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "HIGHEST",
+                            "source": "jar",
+                            "name": "package name",
+                            "value": "text"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "MEDIUM",
+                            "source": "Manifest",
+                            "name": "automatic-module-name",
+                            "value": "org.apache.commons.text"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "Manifest",
+                            "name": "build-jdk-spec",
+                            "value": "1.8"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "Manifest",
+                            "name": "bundle-docurl",
+                            "value": "https:\/\/commons.apache.org\/proper\/commons-text"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "MEDIUM",
+                            "source": "Manifest",
+                            "name": "Bundle-Name",
+                            "value": "Apache Commons Text"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "MEDIUM",
+                            "source": "Manifest",
+                            "name": "bundle-symbolicname",
+                            "value": "org.apache.commons.commons-text"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "HIGH",
+                            "source": "Manifest",
+                            "name": "Implementation-Title",
+                            "value": "Apache Commons Text"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "MEDIUM",
+                            "source": "Manifest",
+                            "name": "specification-title",
+                            "value": "Apache Commons Text"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "HIGHEST",
+                            "source": "pom",
+                            "name": "artifactid",
+                            "value": "commons-text"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "britter@apache.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "chtompki@apache.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "djones@apache.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "ggregory at apache.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer email",
+                            "value": "kinow@apache.org"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "britter"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "chtompki"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "djones"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "ggregory"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer id",
+                            "value": "kinow"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Benedikt Ritter"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Bruno P. Kinoshita"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Duncan Jones"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Gary Gregory"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer name",
+                            "value": "Rob Tompkins"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer org",
+                            "value": "The Apache Software Foundation"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "LOW",
+                            "source": "pom",
+                            "name": "developer org URL",
+                            "value": "https:\/\/www.apache.org\/"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "HIGHEST",
+                            "source": "pom",
+                            "name": "groupid",
+                            "value": "org.apache.commons"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "HIGH",
+                            "source": "pom",
+                            "name": "name",
+                            "value": "Apache Commons Text"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "parent-artifactid",
+                            "value": "commons-parent"
+                    }
+,{
+                            "type": "product",
+                            "confidence": "MEDIUM",
+                            "source": "pom",
+                            "name": "url",
+                            "value": "https:\/\/commons.apache.org\/proper\/commons-text"
+                    }
+                ],
+                "versionEvidence": [
+                    {
+                        "type": "version",
+                        "confidence": "HIGH",
+                        "source": "file",
+                        "name": "version",
+                        "value": "1.10.0"
+                    }
+,                    {
+                        "type": "version",
+                        "confidence": "HIGH",
+                        "source": "Manifest",
+                        "name": "Bundle-Version",
+                        "value": "1.10.0"
+                    }
+,                    {
+                        "type": "version",
+                        "confidence": "HIGH",
+                        "source": "Manifest",
+                        "name": "Implementation-Version",
+                        "value": "1.10.0"
+                    }
+,                    {
+                        "type": "version",
+                        "confidence": "LOW",
+                        "source": "pom",
+                        "name": "parent-version",
+                        "value": "1.10.0"
+                    }
+,                    {
+                        "type": "version",
+                        "confidence": "HIGHEST",
+                        "source": "pom",
+                        "name": "version",
+                        "value": "1.10.0"
+                    }
+                ]
+            }
+                ,"packages": [
+                    {
+                        "id": "pkg:maven\/org.apache.commons\/commons-text@1.10.0"
+,"confidence": "HIGH"                    }
+            ]                ,"vulnerabilityIds": [
+                {
+                    "id": "cpe:2.3:a:apache:commons_text:1.10.0:*:*:*:*:*:*:*"
+,"confidence": "HIGHEST","url": "https:\/\/nvd.nist.gov\/vuln\/search#\/nvd\/home?sortOrder=3&sortDirection=2&cpeFilterMode=applicability&resultType=records&cpeName=cpe%3A2.3%3Aa%3Aapache%3Acommons_text%3A1.10.0%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A"                }
+            ]
+        }    ]
+}

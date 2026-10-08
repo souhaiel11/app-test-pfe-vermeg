@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- APPLICATION DE DÉMONSTRATION INTENTIONNELLEMENT VULNÉRABLE — USAGE DE TEST UNIQUEMENT.
+     Aucun parent : un parent introduirait une gestion de version par BOM, c'est-à-dire
+     exactement la provenance que la plateforme refuse d'auto-corriger
+     (security-eligibility-classifier.ts → BOM_MANAGED → ADMIN_ACTION_REQUIRED).
+     Les deux dépendances applicatives sont donc déclarées sous les deux seules formes
+     pleinement supportées : directe explicite, et gérée par propriété locale. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>tn.pfe.demo</groupId>
+  <artifactId>app-test-pfe-vermeg</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>app-test-pfe-vermeg</name>
+  <description>APPLICATION DE DEMONSTRATION INTENTIONNELLEMENT VULNERABLE — USAGE DE TEST UNIQUEMENT</description>
+
+  <properties>
+    <!-- 17 est la seule valeur qui passe des deux côtés : le vérificateur de candidats
+         compile en JDK 17, Jenkins en JDK 21. -->
+    <maven.compiler.release>17</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- Build reproductible : même entrée, même sortie, octet pour octet. -->
+    <project.build.outputTimestamp>2026-10-08T00:00:00Z</project.build.outputTimestamp>
+
+    <!-- DEMO-002 — dépendance gérée par propriété locale (PROPERTY_MANAGED).
+         La plateforme doit corriger la PROPRIÉTÉ, pas une version en dur. -->
+    <commons-lang3.version>3.12.0</commons-lang3.version>
+  </properties>
+
+  <dependencies>
+    <!-- DEMO-001 — dépendance directe explicite (DIRECT_EXPLICIT).
+         commons-text 1.9 porte EXACTEMENT une CVE d'après les scans réels
+         (CVE-2022-42889, « Text4Shell », CVSS 9.8), corrigée en 1.10.0 — même majeure,
+         donc dans l'enveloppe auto-corrigeable de la plateforme.
+         Une seule CVE par dépendance est un choix délibéré : un paquet qui en porte dix
+         produirait dix constats sur le même fichier cible et rendrait la démonstration
+         illisible. Voir testbed/SCENARIO_MATRIX.md pour les preuves de scan.
+         L'application n'emploie PAS l'interpolateur vulnérable
+         (`StringSubstitutor.createInterpolator()`) : la dépendance est présente et
+         réellement utilisée, le chemin exploitable ne l'est pas. -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-text</artifactId>
+      <version>1.9</version>
+    </dependency>
+
+    <!-- DEMO-002 — pilotée par ${commons-lang3.version} ci-dessus. -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${commons-lang3.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.10.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Toutes les versions de plugin sont épinglées : sans cela, Maven résout des
+           versions par défaut qui changent avec la version de Maven, et le build cesse
+           d'être reproductible entre Jenkins (3.6.3) et le vérificateur (3.8.7). -->
+      <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-clean-plugin</artifactId><version>3.2.0</version></plugin>
+      <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-resources-plugin</artifactId><version>3.3.1</version></plugin>
+      <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>3.11.0</version></plugin>
+      <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-install-plugin</artifactId><version>3.1.1</version></plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.2.5</version>
+        <configuration>
+          <!-- Un build sans test exécuté doit échouer, pas réussir silencieusement :
+               la plateforme ne doit jamais lire « 0 test, 0 échec » comme un succès. -->
+          <failIfNoTests>true</failIfNoTests>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <archive>
+            <manifest><mainClass>tn.pfe.demo.App</mainClass></manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
+      <!-- Les jars de dépendances sont copiés dans target/runtime/ puis placés dans
+           l'image. Trivy scanne l'IMAGE, pas le dépôt : sans les jars présents, son
+           analyseur Java ne voit rien et la fermeture double-scanner est impossible
+           à prouver. C'est le mécanisme, pas un détail d'empaquetage. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.6.1</version>
+        <executions>
+          <execution>
+            <id>runtime-artifacts</id>
+            <phase>package</phase>
+            <goals><goal>copy-dependencies</goal></goals>
+            <configuration>
+              <includeScope>runtime</includeScope>
+              <outputDirectory>${project.build.directory}/runtime</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

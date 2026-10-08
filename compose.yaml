@@ -1,0 +1,18 @@
+# Exécution locale isolée. Le port n'est publié QUE sur la boucle locale de l'hôte :
+# cette application est intentionnellement vulnérable et ne doit jamais être joignable
+# depuis le réseau.
+services:
+  app-test-pfe-vermeg:
+    build: .
+    image: app-test-pfe-vermeg:local
+    container_name: app-test-pfe-vermeg
+    ports:
+      - "127.0.0.1:18080:8080"
+    read_only: true
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8080/health | grep -q '\"status\":\"UP\"'"]
+      interval: 10s
+      timeout: 3s
+      retries: 5

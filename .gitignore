@@ -1,0 +1,12 @@
+target/
+*.class
+*.jar
+*.log
+.idea/
+*.iml
+.vscode/
+.DS_Store
+# Sorties de scanners : jamais versionnées, toujours reproduites
+dependency-check-report*
+trivy-report.json
+zap-report.*
