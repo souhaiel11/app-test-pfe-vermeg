@@ -94,6 +94,21 @@
         </configuration>
       </plugin>
 
+      <!-- CONTRAT D'INTÉGRATION — ne pas retirer.
+           La bibliothèque partagée lance `mvn sonar:sonar`, par PRÉFIXE. Maven ne
+           résout un préfixe que depuis ses groupes de plugins par défaut
+           (`org.apache.maven.plugins`, `org.codehaus.mojo`) ou depuis un plugin
+           DÉCLARÉ dans le pom. `sonar-maven-plugin` vit dans
+           `org.sonarsource.scanner.maven`, donc sans cette déclaration l'étape Sonar
+           échoue avec « No plugin found for prefix 'sonar' » — constaté réellement sur
+           le build #1 de ce projet. La version suit celle du projet de référence, la
+           seule éprouvée sur ce Jenkins (JDK 21, Maven 3.6.3). -->
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.9.1.2184</version>
+      </plugin>
+
       <!-- Les jars de dépendances sont copiés dans target/runtime/ puis placés dans
            l'image. Trivy scanne l'IMAGE, pas le dépôt : sans les jars présents, son
            analyseur Java ne voit rien et la fermeture double-scanner est impossible

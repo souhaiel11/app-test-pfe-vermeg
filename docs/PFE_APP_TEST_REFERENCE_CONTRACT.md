@@ -120,7 +120,7 @@ produire une télémétrie de succès fictive. `ProjectDetector` reconnaît
 | Parent Spring Boot 2.7.0 | **DO_NOT_COPY** | Jenkins compile en Java 21, le vérificateur en Java 17 : un parent Spring Boot 2.7 ajoute un couplage inutile |
 | CVE de référence (Spring4Shell, logback, snakeyaml…) | **DO_NOT_COPY** | doivent être **reproduites par scan réel**, jamais héritées |
 | `failBuildOnCVSS 9` (dependency-check-maven) | **DO_NOT_COPY** | la bibliothèque pilote déjà OWASP et sa politique CVSS |
-| Plugin `sonar-maven-plugin` dans le pom | **DO_NOT_COPY** | `ScannerRunner` l'invoque lui-même |
+| Plugin `sonar-maven-plugin` dans le pom | **REUSE_PATTERN** | *Classement corrigé après le build #1.* La bibliothèque lance `mvn sonar:sonar` **par préfixe** ; Maven ne résout un préfixe que depuis ses groupes par défaut ou depuis un plugin déclaré dans le pom. Sans cette déclaration : « No plugin found for prefix 'sonar' ». La déclaration fait donc partie du contrat, pas du bruit propre au projet de référence. |
 | JaCoCo | **DO_NOT_COPY** | le pipeline passe `-Djacoco.skip=true` |
 | `k8s/deployment.yaml` | **PROJECT_SPECIFIC** | lié à la cible ZAP de référence |
 | `projectId`, SHA de base, numéros de build, PR, lignes de base de données | **DO_NOT_COPY** | identité d'exécution, jamais des constantes |
@@ -138,3 +138,13 @@ produire une télémétrie de succès fictive. `ProjectDetector` reconnaît
    voit rien à signaler (c'est ce que fait le banc qualifié via `target/runtime/`).
 6. Un endpoint de santé déterministe.
 7. Aucune CVE choisie de mémoire : la sélection vient d'un scan réel.
+8. Le `sonar-maven-plugin` **doit** être déclaré dans le pom — voir la ligne corrigée
+   ci-dessus. C'est la seule dépendance de build que le contrat impose réellement.
+
+## 7. Ce qu'un audit statique n'avait pas vu
+
+Le classement du `sonar-maven-plugin` en `DO_NOT_COPY` était **faux**, et seule une
+exécution réelle du pipeline l'a montré : le build #1 a échoué à l'étape Sonar avec
+« No plugin found for prefix 'sonar' ». La leçon vaut d'être écrite — lire le code de la
+bibliothèque ne suffisait pas, parce que l'appel `mvn sonar:sonar` est syntaxiquement
+valide et ne révèle sa dépendance au pom qu'à l'exécution.
