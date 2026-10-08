@@ -25,6 +25,12 @@
     <!-- Build reproductible : même entrée, même sortie, octet pour octet. -->
     <project.build.outputTimestamp>2026-10-08T00:00:00Z</project.build.outputTimestamp>
 
+    <!-- Chemin du rapport JaCoCo, lu par le scanner Sonar. Sans cette
+         propriete, Sonar ne trouve aucun rapport et affiche 0 % de couverture
+         — ce qui est exact mais trompeur : 0 % « non mesure » et 0 % « rien
+         de couvert » ne sont pas la meme information. -->
+    <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+
     <!-- DEMO-002 — dépendance gérée par propriété locale (PROPERTY_MANAGED).
          La plateforme doit corriger la PROPRIÉTÉ, pas une version en dur. -->
     <commons-lang3.version>3.12.0</commons-lang3.version>
@@ -45,6 +51,21 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-text</artifactId>
       <version>1.9</version>
+    </dependency>
+
+    <!-- DEMO-003 — dépendance directe explicite (DIRECT_EXPLICIT).
+         h2 2.1.212 porte EXACTEMENT une CVE d'après les scans réels
+         (CVE-2022-45868, CVSS 7.8), corrigée en 2.2.220 — même majeure.
+         Usage authentique : la valorisation du stock est calculée par une
+         agrégation SQL sur une table en mémoire (voir StockValuation), donc
+         la dépendance est réellement sur le chemin de /api/products.
+         Périmètre de sûreté : aucune console H2, aucune URL fournie par
+         l'appelant, aucun SQL construit depuis une entrée, requêtes
+         préparées uniquement, base strictement en mémoire. -->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>2.1.212</version>
     </dependency>
 
     <!-- DEMO-002 — pilotée par ${commons-lang3.version} ci-dessus. -->
@@ -71,6 +92,31 @@
       <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-resources-plugin</artifactId><version>3.3.1</version></plugin>
       <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>3.11.0</version></plugin>
       <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-install-plugin</artifactId><version>3.1.1</version></plugin>
+
+      <!-- Couverture reelle, pour que SonarQube cesse d'afficher 0 % faute de
+           rapport importe. JaCoCo produit un rapport XML pendant `test` ;
+           `sonar.coverage.jacoco.xmlReportPaths` (ci-dessus, dans les
+           proprietes) dit a Sonar ou le lire. Aucun seuil n'est impose : le
+           pourcentage affiche sera celui reellement mesure, quel qu'il soit.
+           Le pipeline passe `-Djacoco.skip=true` pendant `mvn package` et
+           pendant l'analyse Sonar : l'agent ne tourne donc que lorsque les
+           tests tournent vraiment. -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.12</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals><goal>prepare-agent</goal></goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals><goal>report</goal></goals>
+          </execution>
+        </executions>
+      </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

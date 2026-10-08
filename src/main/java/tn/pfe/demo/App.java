@@ -56,9 +56,14 @@ public final class App {
     public static String products() {
         List<Map<String, Object>> items = ProductCatalog.all().stream()
             .map(Json::product).collect(Collectors.toList());
+        // Deux sources pour la même grandeur, nommées séparément : le calcul en
+        // mémoire est toujours disponible ; l'agrégat SQL (DEMO-003) peut être
+        // absent, et l'est alors explicitement — jamais remplacé en silence.
+        java.util.OptionalInt sql = ProductCatalog.totalStockValueCentsFromDatabase();
         return Json.write(Json.ordered(
             "count", items.size(),
             "totalStockValueCents", ProductCatalog.totalStockValueCents(),
+            "totalStockValueCentsSql", sql.isPresent() ? sql.getAsInt() : null,
             "items", items));
     }
 

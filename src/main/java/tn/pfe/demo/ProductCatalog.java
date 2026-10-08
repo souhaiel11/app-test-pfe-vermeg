@@ -37,8 +37,23 @@ public final class ProductCatalog {
         return StringUtils.normalizeSpace(rawLabel);
     }
 
-    /** Somme des valeurs immobilisées, en centimes. */
+    /** Somme des valeurs immobilisées, en centimes, calculée en mémoire. */
     public static int totalStockValueCents() {
         return ITEMS.stream().mapToInt(Product::getStockValueCents).sum();
+    }
+
+    /**
+     * Même somme, calculée par agrégation SQL (DEMO-003, dépendance `h2`).
+     *
+     * En cas d'échec de la base, on ne renvoie PAS le calcul en mémoire : une
+     * valorisation indisponible doit se voir, pas se déguiser en valeur juste.
+     * L'appelant décide quoi afficher.
+     */
+    public static java.util.OptionalInt totalStockValueCentsFromDatabase() {
+        try {
+            return java.util.OptionalInt.of(StockValuation.totalStockValueCents(ITEMS));
+        } catch (Exception e) {
+            return java.util.OptionalInt.empty();
+        }
     }
 }

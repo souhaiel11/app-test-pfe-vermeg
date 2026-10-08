@@ -1,0 +1,77 @@
+# Cible DAST locale et isolée, pour que l'étape ZAP du pipeline ait quelque
+# chose de réel à scanner.
+#
+# APPLICATION INTENTIONNELLEMENT VULNÉRABLE — USAGE DE TEST UNIQUEMENT.
+# Le Service est volontairement en ClusterIP, PAS en NodePort : ZAP s'exécute
+# comme un pod dans ce même namespace et n'a donc pas besoin d'un port publié
+# sur le nœud. Rien n'est joignable depuis l'extérieur du cluster.
+#
+# Le nom du Service doit être exactement l'hôte de `zapTargetUrl` déclaré dans
+# le Jenkinsfile (`http://app-test-pfe-vermeg:8080`), sinon l'étape ZAP ne
+# résout pas la cible et le signale honnêtement.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-test-pfe-vermeg
+  namespace: pfe-devsecops
+  labels:
+    app: app-test-pfe-vermeg
+    pfe.purpose: dast-target
+    pfe.notice: intentionally-vulnerable-test-only
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-test-pfe-vermeg
+  template:
+    metadata:
+      labels:
+        app: app-test-pfe-vermeg
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+      containers:
+        - name: app
+          image: app-test-pfe-vermeg:baseline3
+          # L'image est chargée dans le démon de minikube, jamais tirée d'un
+          # registre : une application volontairement vulnérable ne doit pas
+          # être publiée.
+          imagePullPolicy: Never
+          args: ["-Dapp.bind=0.0.0.0"]
+          ports:
+            - containerPort: 8080
+              name: http
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests: { cpu: "50m", memory: "128Mi" }
+            limits:   { cpu: "500m", memory: "512Mi" }
+          readinessProbe:
+            httpGet: { path: /health, port: 8080 }
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: { path: /health, port: 8080 }
+            initialDelaySeconds: 10
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-test-pfe-vermeg
+  namespace: pfe-devsecops
+  labels:
+    app: app-test-pfe-vermeg
+spec:
+  type: ClusterIP
+  selector:
+    app: app-test-pfe-vermeg
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
