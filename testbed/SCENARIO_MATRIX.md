@@ -33,7 +33,7 @@ câblée sur un seul mécanisme.
 | **EXPECTED_REMEDIATION** | Montée à la plus basse version corrigée de **même majeure** |
 | **EXPECTED_CHANGE** | `<version>1.9</version>` → `<version>1.10.0</version>` |
 | **EXPECTED_BUILD** | PASS |
-| **EXPECTED_TESTS** | PASS — 20 tests |
+| **EXPECTED_TESTS** | PASS — 24 tests |
 | **EXPECTED_TRIVY** | CVE-2022-42889 **absente** (vérifié : 0 vulnérabilité `lang-pkgs`) |
 | **EXPECTED_OWASP** | CVE-2022-42889 **absente** (vérifié : aucune CVE) |
 | **EXPECTED_PLATFORM_FINAL_STATE** | candidat validé, fermeture de sécurité prouvée ; publication Git seulement si l'écrivain est explicitement activé |
@@ -50,32 +50,62 @@ exploitation ; c'est exactement la distinction à expliquer au jury.
 
 ---
 
-## DEMO-002 — dépendance gérée par propriété *(cible indépendante)*
+## DEMO-002 — dépendance directe, usage authentique en base
 
 | | |
 |---|---|
 | **ID** | DEMO-002 |
-| **PURPOSE** | Prouver que la plateforme n'est pas câblée autour de DEMO-001, et qu'elle sait corriger une **propriété** et non une version en dur |
-| **INITIAL_PROBLEM** | `org.apache.commons:commons-lang3` **3.12.0** porte **CVE-2025-48924** (CVSS 5.3, MEDIUM) |
+| **PURPOSE** | Troisième cible indépendante, retenue après sondage réel de neuf candidats : `h2 2.1.212` ne porte **qu'une** CVE, corrigée dans la même majeure |
+| **INITIAL_PROBLEM** | `com.h2database:h2` **2.1.212** porte **CVE-2022-45868** (CVSS 7.8, HIGH) |
 | **DETECTED_BY** | Trivy **et** OWASP Dependency-Check |
-| **TARGET_FILE** | `pom.xml` (racine) — **le même fichier que DEMO-001** |
-| **PROVENANCE** | `PROPERTY_MANAGED` — pilotée par `${commons-lang3.version}` |
-| **EXPECTED_REMEDIATION** | Montée de la **propriété**, pas de l'élément `<dependency>` |
-| **EXPECTED_CHANGE** | `<commons-lang3.version>3.12.0</…>` → `<commons-lang3.version>3.18.0</…>` |
+| **TARGET_FILE** | `pom.xml` (racine) |
+| **PROVENANCE** | `DIRECT_EXPLICIT` |
+| **EXPECTED_CHANGE** | `<version>2.1.212</version>` → `<version>2.2.220</version>` |
 | **EXPECTED_BUILD** | PASS |
-| **EXPECTED_TESTS** | PASS — 20 tests |
-| **EXPECTED_TRIVY** | CVE-2025-48924 **absente** |
-| **EXPECTED_OWASP** | CVE-2025-48924 **absente** |
+| **EXPECTED_TESTS** | PASS — 24 tests |
+| **EXPECTED_TRIVY** | CVE-2022-45868 **absente** (vérifié : 0 vulnérabilité `lang-pkgs`) |
+| **EXPECTED_OWASP** | CVE-2022-45868 **absente** (vérifié : aucune CVE) |
 | **EXPECTED_PLATFORM_FINAL_STATE** | candidat validé, fermeture prouvée |
-| **DEMO_VALUE** | Élevée. Deuxième cible, autre mécanisme de déclaration, **même fichier** — ce qui en fait aussi le support du contrôle de concurrence NC-3 |
+| **DEMO_VALUE** | Élevée. Une base de données est un objet que le jury comprend immédiatement, et la mise à niveau 2.1 → 2.2 touche un composant réellement sollicité |
+
+**Usage authentique, non décoratif** : la valorisation du stock passe par une
+agrégation SQL réelle (`SELECT SUM(price_cents * stock)`) sur une table en
+mémoire — `StockValuation`. La dépendance est donc sur le chemin de réponse de
+`/api/products`, et un test compare ce résultat au calcul en mémoire. Si une
+mise à niveau de H2 changeait ce comportement, le candidat serait rejeté.
+
+**Périmètre de sûreté** : base strictement en mémoire (`jdbc:h2:mem:`), jamais
+un fichier ; requêtes préparées uniquement ; aucune URL ni fragment de SQL ne
+vient de l'appelant ; aucune console H2 ; aucun serveur, aucun port ouvert.
 
 ---
 
-## DEMO-003 — défaut de code source *(DETECTION_ONLY)*
+## DEMO-003 — dépendance gérée par propriété *(autre mécanisme de déclaration)*
 
 | | |
 |---|---|
 | **ID** | DEMO-003 |
+| **PURPOSE** | Prouver que la plateforme sait corriger une **propriété** et non une version écrite en dur |
+| **INITIAL_PROBLEM** | `org.apache.commons:commons-lang3` **3.12.0** porte **CVE-2025-48924** (CVSS 5.3, MEDIUM) |
+| **DETECTED_BY** | Trivy **et** OWASP Dependency-Check |
+| **TARGET_FILE** | `pom.xml` (racine) — **le même fichier que DEMO-001 et DEMO-002** |
+| **PROVENANCE** | `PROPERTY_MANAGED` — pilotée par `${commons-lang3.version}` |
+| **EXPECTED_REMEDIATION** | Montée de la **propriété**, pas de l'élément `<dependency>` |
+| **EXPECTED_CHANGE** | `<commons-lang3.version>3.12.0</…>` → `<commons-lang3.version>3.18.0</…>` |
+| **EXPECTED_BUILD** | PASS |
+| **EXPECTED_TESTS** | PASS — 24 tests |
+| **EXPECTED_TRIVY** | CVE-2025-48924 **absente** |
+| **EXPECTED_OWASP** | CVE-2025-48924 **absente** |
+| **EXPECTED_PLATFORM_FINAL_STATE** | candidat validé, fermeture prouvée |
+| **DEMO_VALUE** | Élevée. Autre mécanisme de déclaration, **même fichier** que les deux autres — ce qui en fait aussi le support du contrôle de concurrence NC-3 |
+
+---
+
+## DEMO-004 — défaut de code source *(DETECTION_ONLY)*
+
+| | |
+|---|---|
+| **ID** | DEMO-004 |
 | **STATUT** | **DETECTION_ONLY** — assumé, documenté, non présenté comme une correction |
 | **DETECTED_BY** | SonarQube |
 | **TARGET_FILE** | sources Java |
@@ -88,11 +118,11 @@ qu'elle rapporte ; la démonstration le montre sans le mettre en scène.
 
 ---
 
-## DEMO-004 — DAST / ZAP *(DETECTION_ONLY)*
+## DEMO-005 — DAST / ZAP *(DETECTION_ONLY, constat réel)*
 
 | | |
 |---|---|
-| **ID** | DEMO-004 |
+| **ID** | DEMO-006 |
 | **STATUT** | **DETECTION_ONLY** |
 | **DETECTED_BY** | OWASP ZAP, exécuté par le pipeline sur les builds de branche |
 | **PRÉREQUIS** | une cible Kubernetes joignable dans l'espace de noms `pfe-devsecops` |
@@ -105,11 +135,11 @@ C'est un diagnostic, pas un scan réussi — et la plateforme l'affiche comme te
 
 ---
 
-## DEMO-005 — paquet du système d'exploitation *(DETECTION_ONLY, constaté)*
+## DEMO-006 — paquet du système d'exploitation *(DETECTION_ONLY, constaté)*
 
 | | |
 |---|---|
-| **ID** | DEMO-005 |
+| **ID** | DEMO-006 |
 | **STATUT** | **DETECTION_ONLY** |
 | **INITIAL_PROBLEM** | `zlib` **1.3.2-r0** dans la couche Alpine 3.24.2 porte **CVE-2026-85091** (corrigée en `1.3.2-r1`) |
 | **DETECTED_BY** | Trivy (`os-pkgs`) |

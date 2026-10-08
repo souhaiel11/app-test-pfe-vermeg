@@ -10,7 +10,10 @@
     {
       "id": "DEMO-001",
       "provenance": "DIRECT_EXPLICIT",
-      "scanner": ["trivy", "owasp"],
+      "scanner": [
+        "trivy",
+        "owasp"
+      ],
       "target": "pom.xml",
       "package": "org.apache.commons:commons-text",
       "installedVersion": "1.9",
@@ -24,9 +27,31 @@
     },
     {
       "id": "DEMO-002",
+      "provenance": "DIRECT_EXPLICIT",
+      "scanner": [
+        "trivy",
+        "owasp"
+      ],
+      "target": "pom.xml",
+      "package": "com.h2database:h2",
+      "installedVersion": "2.1.212",
+      "expectedFinding": "CVE-2022-45868",
+      "severity": "HIGH",
+      "cvss3": 7.8,
+      "expectedCandidateVersion": "2.2.220",
+      "fixedVersionSource": "trivy FixedVersion",
+      "expectedInitialState": "DETECTED",
+      "expectedAfterRemediation": "NOT_DETECTED",
+      "genuineUse": "valorisation du stock par agregation SQL (StockValuation), sur le chemin de reponse de /api/products"
+    },
+    {
+      "id": "DEMO-003",
       "provenance": "PROPERTY_MANAGED",
       "controllingProperty": "commons-lang3.version",
-      "scanner": ["trivy", "owasp"],
+      "scanner": [
+        "trivy",
+        "owasp"
+      ],
       "target": "pom.xml",
       "package": "org.apache.commons:commons-lang3",
       "installedVersion": "3.12.0",
@@ -41,19 +66,27 @@
   ],
   "detectionOnly": [
     {
-      "id": "DEMO-003",
+      "id": "DEMO-004",
       "detector": "sonarqube",
       "status": "DETECTION_ONLY",
       "reason": "La chaîne WF6 n'a pas de stratégie de remédiation de code source qualifiée. Présenté comme détection, jamais comme correction automatique."
     },
     {
-      "id": "DEMO-004",
+      "id": "DEMO-005",
       "detector": "zap",
       "status": "DETECTION_ONLY",
-      "reason": "Aucune stratégie automatique indépendante de la source. Exécuté comme DAST réel contre la cible locale, sans prétendre à une fermeture."
+      "observedFinding": "10106 HTTP Only Site",
+      "severity": "MEDIUM",
+      "target": "http://app-test-pfe-vermeg:8080 (ClusterIP, namespace pfe-devsecops)",
+      "reproducedOnBuilds": [
+        3,
+        4,
+        5
+      ],
+      "reason": "Constat DAST reel et reproductible. Aucune remediation automatique : ZAP n'est pas une source supportee (SUPPORTED_SECURITY_SOURCES = {TRIVY, OWASP}), aucun composant de rescan ZAP n'existe cote verificateur, et aucun adaptateur de cible n'accepte un fichier de configuration ou de source."
     },
     {
-      "id": "DEMO-005",
+      "id": "DEMO-006",
       "detector": "trivy",
       "target": "couche de base de l'image",
       "package": "zlib",
@@ -87,5 +120,11 @@
     "expected": "ONE_SAME_FILE_OWNER",
     "mechanism": "DEMO-001 et DEMO-002 visent le MÊME fichier cible. L'index partiel unique de Phase 4G n'autorise qu'un écrivain actif par (projectId, targetKey).",
     "productionDifferentFileSupport": false
+  },
+  "measuredCoverage": {
+    "line": 92.3,
+    "branch": 82.4,
+    "sonarGlobal": 88.9,
+    "source": "rapport XML JaCoCo du build, importe par Sonar et remonte dans tests.coverage"
   }
 }

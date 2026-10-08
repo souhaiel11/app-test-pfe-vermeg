@@ -3,18 +3,18 @@
   "Trivy": {
     "Version": "0.69.3"
   },
-  "ReportID": "01a11bfa-69f5-7614-84f2-9f186b97d4aa",
-  "CreatedAt": "2026-10-08T16:45:58.38939969+02:00",
-  "ArtifactID": "sha256:bd28cb7c0903790b39b1150c5a86e45dac905184b0647f0652aaf65be2d26b59",
-  "ArtifactName": "app-test-pfe-vermeg:candidate-fixed",
+  "ReportID": "01a11cf1-6c32-793b-89e4-48b6ddbcd03a",
+  "CreatedAt": "2026-10-08T21:15:46.354607474+02:00",
+  "ArtifactID": "sha256:788cb907f8259dc255768bbd4135b4727e5b6ee71bd0695e1f49d70a6a64352e",
+  "ArtifactName": "app-test-pfe-vermeg:cand3",
   "ArtifactType": "container_image",
   "Metadata": {
-    "Size": 192560640,
+    "Size": 195170816,
     "OS": {
       "Family": "alpine",
       "Name": "3.24.2"
     },
-    "ImageID": "sha256:b22fe50a1d2dab22d6542daa0d0b34c94a840848341e895845767f2302e43ee9",
+    "ImageID": "sha256:913d0423a4728eaee0d3fbc64825ae6c07288252f5cbabfec6cfee394a11c720",
     "DiffIDs": [
       "sha256:74d97c428c51a828f9051a7a40a53ff1fc99e54fc30323ce36760701b0b7f711",
       "sha256:a152dfd2607b01e7c5b933b98da8c746ed0bd242e4f544ff3afd656fdfc7c7a1",
@@ -22,16 +22,16 @@
       "sha256:76b42b7b749e5cf63c4ef5fe61a878a5f508733d81f12305b29e6320007a49de",
       "sha256:6c0c03120c42828b5d975a2b84e53a9ca0ed58b0b0dab9b6c79f5516ddabce2c",
       "sha256:49e2b88e849f6a7ac37ada7e80311aa454b517461420349e72dedbe499e076b7",
-      "sha256:8c2f2da09a09d8f77f0329ab6c3d411fb766e9f0f9184c8438bde9f61c0edab2",
-      "sha256:3fa17ed87a5c95e0096573a158b94f09dcfd8b83ad5c2d8000db0d73b5a4459d"
+      "sha256:2981a821bcac8a7da4692ccc6734b03ed63e8cab9a216e992c241d33c1756278",
+      "sha256:c7142b0cb4eeb358da6af0a015c5e14f3786122b22d845879c40bf064eb581dd"
     ],
     "RepoTags": [
-      "app-test-pfe-vermeg:candidate-fixed"
+      "app-test-pfe-vermeg:cand3"
     ],
-    "Reference": "app-test-pfe-vermeg:candidate-fixed",
+    "Reference": "app-test-pfe-vermeg:cand3",
     "ImageConfig": {
       "architecture": "amd64",
-      "created": "2026-10-08T16:45:35.825038639+02:00",
+      "created": "2026-10-08T21:15:34.410126688+02:00",
       "history": [
         {
           "created": "2026-09-17T20:37:20Z",
@@ -106,35 +106,35 @@
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-08T14:45:35Z",
+          "created": "2026-10-08T19:15:34Z",
           "created_by": "COPY /build/target/runtime/ /app/dependencies/ # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-08T14:45:35Z",
+          "created": "2026-10-08T19:15:34Z",
           "created_by": "COPY /build/target/app-test-pfe-vermeg-1.0.0.jar /app/application.jar # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-08T14:45:35Z",
+          "created": "2026-10-08T19:15:34Z",
           "created_by": "USER 65532:65532",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-08T14:45:35Z",
+          "created": "2026-10-08T19:15:34Z",
           "created_by": "EXPOSE [8080/tcp]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-08T14:45:35Z",
+          "created": "2026-10-08T19:15:34Z",
           "created_by": "HEALTHCHECK \u0026{[\"CMD-SHELL\" \"wget -qO- http://127.0.0.1:8080/health | grep -q '\\\"status\\\":\\\"UP\\\"' || exit 1\"] \"30s\" \"3s\" \"5s\" \"0s\" '\\x03'}",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-08T14:45:35Z",
+          "created": "2026-10-08T19:15:34Z",
           "created_by": "ENTRYPOINT [\"/opt/java/openjdk/bin/java\" \"-Dapp.bind=0.0.0.0\" \"-cp\" \"/app/application.jar:/app/dependencies/*\" \"tn.pfe.demo.App\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -150,8 +150,8 @@
           "sha256:76b42b7b749e5cf63c4ef5fe61a878a5f508733d81f12305b29e6320007a49de",
           "sha256:6c0c03120c42828b5d975a2b84e53a9ca0ed58b0b0dab9b6c79f5516ddabce2c",
           "sha256:49e2b88e849f6a7ac37ada7e80311aa454b517461420349e72dedbe499e076b7",
-          "sha256:8c2f2da09a09d8f77f0329ab6c3d411fb766e9f0f9184c8438bde9f61c0edab2",
-          "sha256:3fa17ed87a5c95e0096573a158b94f09dcfd8b83ad5c2d8000db0d73b5a4459d"
+          "sha256:2981a821bcac8a7da4692ccc6734b03ed63e8cab9a216e992c241d33c1756278",
+          "sha256:c7142b0cb4eeb358da6af0a015c5e14f3786122b22d845879c40bf064eb581dd"
         ]
       },
       "config": {
@@ -218,18 +218,18 @@
         "DiffID": "sha256:49e2b88e849f6a7ac37ada7e80311aa454b517461420349e72dedbe499e076b7"
       },
       {
-        "Size": 944640,
-        "DiffID": "sha256:8c2f2da09a09d8f77f0329ab6c3d411fb766e9f0f9184c8438bde9f61c0edab2"
+        "Size": 3551744,
+        "DiffID": "sha256:2981a821bcac8a7da4692ccc6734b03ed63e8cab9a216e992c241d33c1756278"
       },
       {
-        "Size": 15360,
-        "DiffID": "sha256:3fa17ed87a5c95e0096573a158b94f09dcfd8b83ad5c2d8000db0d73b5a4459d"
+        "Size": 18432,
+        "DiffID": "sha256:c7142b0cb4eeb358da6af0a015c5e14f3786122b22d845879c40bf064eb581dd"
       }
     ]
   },
   "Results": [
     {
-      "Target": "app-test-pfe-vermeg:candidate-fixed (alpine 3.24.2)",
+      "Target": "app-test-pfe-vermeg:cand3 (alpine 3.24.2)",
       "Class": "os-pkgs",
       "Type": "alpine",
       "Packages": [
@@ -3592,7 +3592,7 @@
             "Name": "Alpine Secdb",
             "URL": "https://secdb.alpinelinux.org/"
           },
-          "Fingerprint": "sha256:111d2670141878660bb0d9d0e5181338047625b15520713d9ec00cb3de8489d7",
+          "Fingerprint": "sha256:9704f26e372a86c662266d01303b34764b000f4a315c0e9bd03bd972b5c02a19",
           "Title": "zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow vul ...",
           "Description": "zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow vulnerability in the gz_vacate() function when processing non-blocking gzwrite() operations with stale external buffer pointers. Attackers can trigger the overflow by calling gzprintf() or gzvprintf() after a write stall, causing an unchecked memmove() to write beyond the internal input buffer boundary.",
           "Severity": "MEDIUM",
@@ -3620,6 +3620,19 @@
       "Type": "jar",
       "Packages": [
         {
+          "Name": "com.h2database:h2",
+          "Identifier": {
+            "PURL": "pkg:maven/com.h2database/h2@2.2.220",
+            "UID": "78b3150744760dd"
+          },
+          "Version": "2.2.220",
+          "Layer": {
+            "DiffID": "sha256:2981a821bcac8a7da4692ccc6734b03ed63e8cab9a216e992c241d33c1756278"
+          },
+          "FilePath": "app/dependencies/h2-2.2.220.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
           "Name": "org.apache.commons:commons-lang3",
           "Identifier": {
             "PURL": "pkg:maven/org.apache.commons/commons-lang3@3.18.0",
@@ -3627,7 +3640,7 @@
           },
           "Version": "3.18.0",
           "Layer": {
-            "DiffID": "sha256:8c2f2da09a09d8f77f0329ab6c3d411fb766e9f0f9184c8438bde9f61c0edab2"
+            "DiffID": "sha256:2981a821bcac8a7da4692ccc6734b03ed63e8cab9a216e992c241d33c1756278"
           },
           "FilePath": "app/dependencies/commons-lang3-3.18.0.jar",
           "AnalyzedBy": "jar"
@@ -3640,7 +3653,7 @@
           },
           "Version": "1.10.0",
           "Layer": {
-            "DiffID": "sha256:8c2f2da09a09d8f77f0329ab6c3d411fb766e9f0f9184c8438bde9f61c0edab2"
+            "DiffID": "sha256:2981a821bcac8a7da4692ccc6734b03ed63e8cab9a216e992c241d33c1756278"
           },
           "FilePath": "app/dependencies/commons-text-1.10.0.jar",
           "AnalyzedBy": "jar"
@@ -3653,7 +3666,7 @@
           },
           "Version": "1.0.0",
           "Layer": {
-            "DiffID": "sha256:3fa17ed87a5c95e0096573a158b94f09dcfd8b83ad5c2d8000db0d73b5a4459d"
+            "DiffID": "sha256:c7142b0cb4eeb358da6af0a015c5e14f3786122b22d845879c40bf064eb581dd"
           },
           "FilePath": "app/application.jar",
           "AnalyzedBy": "jar"

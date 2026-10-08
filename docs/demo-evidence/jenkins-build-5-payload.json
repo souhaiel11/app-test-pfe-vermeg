@@ -1,0 +1,197 @@
+{
+    "event": "pipeline_success",
+    "job": "app-test-pfe-vermeg",
+    "build_number": "5",
+    "build_url": "http://172.31.172.61:8082/job/app-test-pfe-vermeg/5/",
+    "logs_url": "http://172.31.172.61:8082/job/app-test-pfe-vermeg/5/consoleText",
+    "branch": "main",
+    "commit": "c365cedf",
+    "status": "SUCCESS",
+    "severity_hint": "HIGH",
+    "duration_ms": 174106,
+    "buildStageStatus": {
+        "build": "SUCCESS",
+        "sonar": "SUCCESS",
+        "docker": "SUCCESS",
+        "tests": "SUCCESS",
+        "trivy": "COMPLETED",
+        "owasp": "COMPLETED",
+        "zap": "COMPLETED"
+    },
+    "technicalFailure": null,
+    "pull_request": null,
+    "reports": {
+        "jenkinsBasePath": "/shared/reports/app-test-pfe-vermeg/5",
+        "basePath": "/home/node/.n8n-files/reports/app-test-pfe-vermeg/5",
+        "trivyPath": "/home/node/.n8n-files/reports/app-test-pfe-vermeg/5/trivy-report.json",
+        "zapPath": "/home/node/.n8n-files/reports/app-test-pfe-vermeg/5/zap-report.json",
+        "owaspPath": "/home/node/.n8n-files/reports/app-test-pfe-vermeg/5/dependency-check-report.json",
+        "available": {
+            "trivy": true,
+            "zap": true,
+            "owasp": true
+        }
+    },
+    "tests": {
+        "status": "SUCCESS",
+        "total": 24,
+        "failures": 0,
+        "skipped": 0,
+        "coverage": 92
+    },
+    "semanticEvidence": {
+        "reportFormat": "JUNIT_XML",
+        "payload": {
+            "testcases": [
+                {
+                    "classname": "tn.pfe.demo.CatalogBehaviourTest",
+                    "name": "productRejectsInvalidAmounts",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.CatalogBehaviourTest",
+                    "name": "unserializableTypeIsRejected",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.CatalogBehaviourTest",
+                    "name": "jsonPreservesKeyOrder",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.CatalogBehaviourTest",
+                    "name": "jsonEscapesSpecialCharacters",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.CatalogBehaviourTest",
+                    "name": "displayLabelAcceptsNull",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.CatalogBehaviourTest",
+                    "name": "displayLabelNormalizesSpacing",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.CatalogBehaviourTest",
+                    "name": "stockValueIsPriceTimesStock",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.CatalogBehaviourTest",
+                    "name": "byIdTrimsButIsCaseSensitive",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.HealthContractTest",
+                    "name": "healthIsDeterministic",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.HealthContractTest",
+                    "name": "serverRejectsForeignBindAddress",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.HealthContractTest",
+                    "name": "serverServesHealthOverHttp",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.HealthContractTest",
+                    "name": "healthBodyIsExact",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.ProductApiTest",
+                    "name": "unknownPathIsNotFound",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.ProductApiTest",
+                    "name": "infoCarriesIdentityAndNotice",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.ProductApiTest",
+                    "name": "singleProductHasExpectedShape",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.ProductApiTest",
+                    "name": "productsListHasThreeItems",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.ProductApiTest",
+                    "name": "unknownProductIsNotFound",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.ProductApiTest",
+                    "name": "totalStockValueIsExact",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.ProductApiTest",
+                    "name": "mutatingMethodIsRejected",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.ProductApiTest",
+                    "name": "blankProductIdIsNotFound",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.StockValuationTest",
+                    "name": "loadedDatabaseVersionIsReadable",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.StockValuationTest",
+                    "name": "responseCarriesBothValuations",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.StockValuationTest",
+                    "name": "sqlTotalIsExact",
+                    "status": "PASS"
+                },
+                {
+                    "classname": "tn.pfe.demo.StockValuationTest",
+                    "name": "sqlAggregateMatchesInMemorySum",
+                    "status": "PASS"
+                }
+            ]
+        }
+    },
+    "sonar": {
+        "project_key": "app-test-pfe-vermeg",
+        "dashboard_url": "http://sonarqube:9000/dashboard?id=app-test-pfe-vermeg",
+        "ceTaskId": "fe4f2cc6-4693-45a7-844b-24e442fb1c70",
+        "analysisId": null
+    },
+    "docker": {
+        "image": "app-test-pfe-vermeg:5",
+        "build_status": "SUCCESS",
+        "image_tag": "app-test-pfe-vermeg:5",
+        "push_status": "NOT_ATTEMPTED"
+    },
+    "kubernetes": {
+        "namespace": "pfe-devsecops",
+        "target": "http://app-test-pfe-vermeg:8080"
+    },
+    "zap": {
+        "launchAttempted": true,
+        "launchSucceeded": true,
+        "scanStarted": true,
+        "podObserved": true,
+        "resultAvailable": true,
+        "technicalCode": null,
+        "launchErrorType": null,
+        "launchExitCode": 0,
+        "diagnosticMessage": null
+    },
+    "commitSha": "c365cedfe0fa14415eb8af5aae7feee9b5077b66"
+}

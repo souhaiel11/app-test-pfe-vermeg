@@ -1,0 +1,57 @@
+{
+	"@programName": "ZAP",
+	"@version": "2.17.0",
+	"@generated": "Thu, 8 Oct 2026 19:46:41",
+	"created": "2026-10-08T19:46:41.086966086Z",
+	"site":[ 
+		{
+			"@name": "https://app-test-pfe-vermeg:8080",
+			"@host": "app-test-pfe-vermeg",
+			"@port": "8080",
+			"@ssl": "true",
+			"alerts": [ 
+			]
+		},
+		{
+			"@name": "http://app-test-pfe-vermeg:8080",
+			"@host": "app-test-pfe-vermeg",
+			"@port": "8080",
+			"@ssl": "false",
+			"alerts": [ 
+				{
+					"pluginid": "10106",
+					"alertRef": "10106",
+					"alert": "HTTP Only Site",
+					"name": "HTTP Only Site",
+					"riskcode": "2",
+					"confidence": "2",
+					"riskdesc": "Medium (Medium)",
+					"desc": "<p>The site is only served under HTTP and not HTTPS.</p>",
+					"instances":[ 
+						{
+							"id": "0",
+							"uri": "http://app-test-pfe-vermeg:8080",
+							"nodeName": "https:\/\/app-test-pfe-vermeg:8080",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "Failed to connect.\nZAP attempted to connect via: https://app-test-pfe-vermeg:8080"
+						}
+					],
+					"count": "1",
+					"systemic": false,
+					"solution": "<p>Configure your web or application server to use SSL (https).</p>",
+					"otherinfo": "<p>Failed to connect.</p><p>ZAP attempted to connect via: https://app-test-pfe-vermeg:8080</p>",
+					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html</p><p>https://letsencrypt.org/</p>",
+					"cweid": "311",
+					"wascid": "4",
+					"sourceid": "53"
+				}
+			]
+		}
+	],
+	"sequences":[
+	]
+
+}

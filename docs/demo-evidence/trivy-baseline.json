@@ -3,18 +3,18 @@
   "Trivy": {
     "Version": "0.69.3"
   },
-  "ReportID": "01a11bf4-c28d-76b6-ba55-4e1862831587",
-  "CreatedAt": "2026-10-08T16:39:47.85344328+02:00",
-  "ArtifactID": "sha256:7f7ed15e1cc85c6b57e0e4cc67c3dfac1b7ab7d373252b9f923621613adccba6",
-  "ArtifactName": "app-test-pfe-vermeg:baseline",
+  "ReportID": "01a11ceb-4a9e-780a-96b2-efe8a3788611",
+  "CreatedAt": "2026-10-08T21:09:04.542528452+02:00",
+  "ArtifactID": "sha256:bf8391c3d4d41c77152e3d43f4ac3eafe8ebcc153ec230468cfa77b1f3f386d7",
+  "ArtifactName": "app-test-pfe-vermeg:baseline3",
   "ArtifactType": "container_image",
   "Metadata": {
-    "Size": 192423424,
+    "Size": 194968064,
     "OS": {
       "Family": "alpine",
       "Name": "3.24.2"
     },
-    "ImageID": "sha256:166f9ac09d4dffa69e87bf16f6e6e66e34a3ed8e870d710255e8a7294411f9c8",
+    "ImageID": "sha256:df248ddd39c93c1ff29438270179e46b7ab75e953dfbef39a75d71b9ef757a97",
     "DiffIDs": [
       "sha256:74d97c428c51a828f9051a7a40a53ff1fc99e54fc30323ce36760701b0b7f711",
       "sha256:a152dfd2607b01e7c5b933b98da8c746ed0bd242e4f544ff3afd656fdfc7c7a1",
@@ -22,16 +22,16 @@
       "sha256:76b42b7b749e5cf63c4ef5fe61a878a5f508733d81f12305b29e6320007a49de",
       "sha256:6c0c03120c42828b5d975a2b84e53a9ca0ed58b0b0dab9b6c79f5516ddabce2c",
       "sha256:49e2b88e849f6a7ac37ada7e80311aa454b517461420349e72dedbe499e076b7",
-      "sha256:ffe2b964102e714629fd1f5b6d05444a4f930a66651d2feb405b59c141060f54",
-      "sha256:19943ac2b61ba831e647c34920dd0781e102b3b2c8ca270ab8e88f32da382781"
+      "sha256:b3e2f7cc22d00f159e235e72e92642fa5251d2a2baedc7fd81c785b6e9962c20",
+      "sha256:b31925164a9ab140a131716604d03c333356551dbcd4a83ade96264ac068f206"
     ],
     "RepoTags": [
-      "app-test-pfe-vermeg:baseline"
+      "app-test-pfe-vermeg:baseline3"
     ],
-    "Reference": "app-test-pfe-vermeg:baseline",
+    "Reference": "app-test-pfe-vermeg:baseline3",
     "ImageConfig": {
       "architecture": "amd64",
-      "created": "2026-10-08T16:24:33.505435924+02:00",
+      "created": "2026-10-08T21:03:38.791775609+02:00",
       "history": [
         {
           "created": "2026-09-17T20:37:20Z",
@@ -106,35 +106,35 @@
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-08T14:24:33Z",
+          "created": "2026-10-08T19:03:38Z",
           "created_by": "COPY /build/target/runtime/ /app/dependencies/ # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-08T14:24:33Z",
+          "created": "2026-10-08T19:03:38Z",
           "created_by": "COPY /build/target/app-test-pfe-vermeg-1.0.0.jar /app/application.jar # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-08T14:24:33Z",
+          "created": "2026-10-08T19:03:38Z",
           "created_by": "USER 65532:65532",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-08T14:24:33Z",
+          "created": "2026-10-08T19:03:38Z",
           "created_by": "EXPOSE [8080/tcp]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-08T14:24:33Z",
+          "created": "2026-10-08T19:03:38Z",
           "created_by": "HEALTHCHECK \u0026{[\"CMD-SHELL\" \"wget -qO- http://127.0.0.1:8080/health | grep -q '\\\"status\\\":\\\"UP\\\"' || exit 1\"] \"30s\" \"3s\" \"5s\" \"0s\" '\\x03'}",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-08T14:24:33Z",
+          "created": "2026-10-08T19:03:38Z",
           "created_by": "ENTRYPOINT [\"/opt/java/openjdk/bin/java\" \"-Dapp.bind=0.0.0.0\" \"-cp\" \"/app/application.jar:/app/dependencies/*\" \"tn.pfe.demo.App\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -150,8 +150,8 @@
           "sha256:76b42b7b749e5cf63c4ef5fe61a878a5f508733d81f12305b29e6320007a49de",
           "sha256:6c0c03120c42828b5d975a2b84e53a9ca0ed58b0b0dab9b6c79f5516ddabce2c",
           "sha256:49e2b88e849f6a7ac37ada7e80311aa454b517461420349e72dedbe499e076b7",
-          "sha256:ffe2b964102e714629fd1f5b6d05444a4f930a66651d2feb405b59c141060f54",
-          "sha256:19943ac2b61ba831e647c34920dd0781e102b3b2c8ca270ab8e88f32da382781"
+          "sha256:b3e2f7cc22d00f159e235e72e92642fa5251d2a2baedc7fd81c785b6e9962c20",
+          "sha256:b31925164a9ab140a131716604d03c333356551dbcd4a83ade96264ac068f206"
         ]
       },
       "config": {
@@ -218,18 +218,18 @@
         "DiffID": "sha256:49e2b88e849f6a7ac37ada7e80311aa454b517461420349e72dedbe499e076b7"
       },
       {
-        "Size": 807424,
-        "DiffID": "sha256:ffe2b964102e714629fd1f5b6d05444a4f930a66651d2feb405b59c141060f54"
+        "Size": 3348992,
+        "DiffID": "sha256:b3e2f7cc22d00f159e235e72e92642fa5251d2a2baedc7fd81c785b6e9962c20"
       },
       {
-        "Size": 15360,
-        "DiffID": "sha256:19943ac2b61ba831e647c34920dd0781e102b3b2c8ca270ab8e88f32da382781"
+        "Size": 18432,
+        "DiffID": "sha256:b31925164a9ab140a131716604d03c333356551dbcd4a83ade96264ac068f206"
       }
     ]
   },
   "Results": [
     {
-      "Target": "app-test-pfe-vermeg:baseline (alpine 3.24.2)",
+      "Target": "app-test-pfe-vermeg:baseline3 (alpine 3.24.2)",
       "Class": "os-pkgs",
       "Type": "alpine",
       "Packages": [
@@ -3592,7 +3592,7 @@
             "Name": "Alpine Secdb",
             "URL": "https://secdb.alpinelinux.org/"
           },
-          "Fingerprint": "sha256:6ffa32a47f40ad6a280e140be552c9c46e3c0d9fd83bbbd045bee1af736d7c7e",
+          "Fingerprint": "sha256:669bc03a316c5569cf3715af97edcf8c80566c4d095d939969cb49206b7cf9c2",
           "Title": "zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow vul ...",
           "Description": "zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow vulnerability in the gz_vacate() function when processing non-blocking gzwrite() operations with stale external buffer pointers. Attackers can trigger the overflow by calling gzprintf() or gzvprintf() after a write stall, causing an unchecked memmove() to write beyond the internal input buffer boundary.",
           "Severity": "MEDIUM",
@@ -3620,6 +3620,19 @@
       "Type": "jar",
       "Packages": [
         {
+          "Name": "com.h2database:h2",
+          "Identifier": {
+            "PURL": "pkg:maven/com.h2database/h2@2.1.212",
+            "UID": "de1ce7c42e604223"
+          },
+          "Version": "2.1.212",
+          "Layer": {
+            "DiffID": "sha256:b3e2f7cc22d00f159e235e72e92642fa5251d2a2baedc7fd81c785b6e9962c20"
+          },
+          "FilePath": "app/dependencies/h2-2.1.212.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
           "Name": "org.apache.commons:commons-lang3",
           "Identifier": {
             "PURL": "pkg:maven/org.apache.commons/commons-lang3@3.12.0",
@@ -3627,7 +3640,7 @@
           },
           "Version": "3.12.0",
           "Layer": {
-            "DiffID": "sha256:ffe2b964102e714629fd1f5b6d05444a4f930a66651d2feb405b59c141060f54"
+            "DiffID": "sha256:b3e2f7cc22d00f159e235e72e92642fa5251d2a2baedc7fd81c785b6e9962c20"
           },
           "FilePath": "app/dependencies/commons-lang3-3.12.0.jar",
           "AnalyzedBy": "jar"
@@ -3640,7 +3653,7 @@
           },
           "Version": "1.9",
           "Layer": {
-            "DiffID": "sha256:ffe2b964102e714629fd1f5b6d05444a4f930a66651d2feb405b59c141060f54"
+            "DiffID": "sha256:b3e2f7cc22d00f159e235e72e92642fa5251d2a2baedc7fd81c785b6e9962c20"
           },
           "FilePath": "app/dependencies/commons-text-1.9.jar",
           "AnalyzedBy": "jar"
@@ -3653,13 +3666,72 @@
           },
           "Version": "1.0.0",
           "Layer": {
-            "DiffID": "sha256:19943ac2b61ba831e647c34920dd0781e102b3b2c8ca270ab8e88f32da382781"
+            "DiffID": "sha256:b31925164a9ab140a131716604d03c333356551dbcd4a83ade96264ac068f206"
           },
           "FilePath": "app/application.jar",
           "AnalyzedBy": "jar"
         }
       ],
       "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2022-45868",
+          "VendorIDs": [
+            "GHSA-22wj-vf5f-wrvj"
+          ],
+          "PkgName": "com.h2database:h2",
+          "PkgPath": "app/dependencies/h2-2.1.212.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/com.h2database/h2@2.1.212",
+            "UID": "de1ce7c42e604223"
+          },
+          "InstalledVersion": "2.1.212",
+          "FixedVersion": "2.2.220",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:b3e2f7cc22d00f159e235e72e92642fa5251d2a2baedc7fd81c785b6e9962c20"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-45868",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Fingerprint": "sha256:9b2a818b680ce91e1388e69f121e09346329a88ddf41cb42af7cd7306666eef6",
+          "Title": "The web-based admin console in H2 Database Engine before 2.2.220 can b ...",
+          "Description": "The web-based admin console in H2 Database Engine before 2.2.220 can be started via the CLI with the argument -webAdminPassword, which allows the user to specify the password in cleartext for the web admin console. Consequently, a local user (or an attacker that has obtained local access through some means) would be able to discover the password by listing processes and their arguments. NOTE: the vendor states \"This is not a vulnerability of H2 Console ... Passwords should never be passed on the command line and every qualified DBA or system administrator is expected to know that.\" Nonetheless, the issue was fixed in 2.2.220.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-312"
+          ],
+          "VendorSeverity": {
+            "ghsa": 3,
+            "nvd": 3
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 7.8
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 7.8
+            }
+          },
+          "References": [
+            "https://github.com/advisories/GHSA-22wj-vf5f-wrvj",
+            "https://github.com/h2database/h2database",
+            "https://github.com/h2database/h2database/blob/96832bf5a97cdc0adc1f2066ed61c54990d66ab5/h2/src/main/org/h2/server/web/WebServer.java#L346-L347",
+            "https://github.com/h2database/h2database/commit/581ed18ff9d6b3761d851620ed88a3994a351a0d",
+            "https://github.com/h2database/h2database/issues/3686",
+            "https://github.com/h2database/h2database/pull/3833",
+            "https://github.com/h2database/h2database/releases/tag/version-2.2.220",
+            "https://nvd.nist.gov/vuln/detail/CVE-2022-45868",
+            "https://sites.google.com/sonatype.com/vulnerabilities/sonatype-2022-6243"
+          ],
+          "PublishedDate": "2022-11-23T21:15:11.36Z",
+          "LastModifiedDate": "2026-06-17T05:10:53.73Z"
+        },
         {
           "VulnerabilityID": "CVE-2025-48924",
           "VendorIDs": [
@@ -3675,7 +3747,7 @@
           "FixedVersion": "3.18.0",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:ffe2b964102e714629fd1f5b6d05444a4f930a66651d2feb405b59c141060f54"
+            "DiffID": "sha256:b3e2f7cc22d00f159e235e72e92642fa5251d2a2baedc7fd81c785b6e9962c20"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-48924",
@@ -3684,7 +3756,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:5d09f3b6213306b4249c723755000165ed4214fa7eb55754cc95930e593b1540",
+          "Fingerprint": "sha256:60628ccbf07e44d26c5e0b5ce21c43909de97fb2efa703f1ccf4f883189e6fb3",
           "Title": "commons-lang/commons-lang: org.apache.commons/commons-lang3: Uncontrolled Recursion vulnerability in Apache Commons Lang",
           "Description": "Uncontrolled Recursion vulnerability in Apache Commons Lang.\n\nThis issue affects Apache Commons Lang: Starting with commons-lang:commons-lang 2.0 to 2.6, and, from org.apache.commons:commons-lang3 3.0 before 3.18.0.\n\nThe methods ClassUtils.getClass(...) can throw StackOverflowError on very long inputs. Because an Error is usually not handled by applications and libraries, a \nStackOverflowError could cause an application to stop.\n\nUsers are recommended to upgrade to version 3.18.0, which fixes the issue.",
           "Severity": "MEDIUM",
@@ -3742,7 +3814,7 @@
           "FixedVersion": "1.10.0",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:ffe2b964102e714629fd1f5b6d05444a4f930a66651d2feb405b59c141060f54"
+            "DiffID": "sha256:b3e2f7cc22d00f159e235e72e92642fa5251d2a2baedc7fd81c785b6e9962c20"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-42889",
@@ -3751,7 +3823,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:46cd30884bc00ea26be18353c9edbd9354b0c26446205ea44e3f90ad347f84b9",
+          "Fingerprint": "sha256:8505ae70bd3c30cae65fead6d9e300cf7d6005bb49be77697076d0cb1e0b7508",
           "Title": "apache-commons-text: variable interpolation RCE",
           "Description": "Apache Commons Text performs variable interpolation, allowing properties to be dynamically evaluated and expanded. The standard format for interpolation is \"${prefix:name}\", where \"prefix\" is used to locate an instance of org.apache.commons.text.lookup.StringLookup that performs the interpolation. Starting with version 1.5 and continuing through 1.9, the set of default Lookup instances included interpolators that could result in arbitrary code execution or contact with remote servers. These lookups are: - \"script\" - execute expressions using the JVM script execution engine (javax.script) - \"dns\" - resolve dns records - \"url\" - load values from urls, including from remote servers Applications using the interpolation defaults in the affected versions may be vulnerable to remote code execution or unintentional contact with remote servers if untrusted configuration values are used. Users are recommended to upgrade to Apache Commons Text 1.10.0, which disables the problematic interpolators by default.",
           "Severity": "CRITICAL",

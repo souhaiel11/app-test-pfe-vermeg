@@ -24,7 +24,8 @@ Durée visée : **12 à 15 minutes** pour le parcours complet. Les étapes marqu
 | 5 | Accès GitHub | `git ls-remote origin` | les références répondent |
 | 6 | Projet visible | écran **Projets** de l'interface | `app-test-pfe-vermeg` présent |
 | 7 | État du dépôt connu | `git describe --tags` | `baseline-vulnerable` (ou l'écart assumé) |
-| 8 | État de la dépêche connu | variables du backend | `SECURITY_REMEDIATION_DISPATCH_ENABLED` : savoir si c'est `true` ou `false` **avant** de promettre une remédiation en direct |
+| 8 | Cible DAST vivante | `kubectl -n pfe-devsecops get pod -l app=app-test-pfe-vermeg` | pod `Running`, sinon l'étape ZAP signalera honnêtement l'absence de cible |
+| 9 | État de la dépêche connu | variables du backend | `SECURITY_REMEDIATION_DISPATCH_ENABLED` : savoir si c'est `true` ou `false` **avant** de promettre une remédiation en direct |
 
 **Le point 8 est le plus important.** Si la dépêche est désactivée, ne promettez pas une
 remédiation en direct : montrez la chaîne jusqu'à la tâche, puis les preuves
@@ -79,9 +80,16 @@ lisible.
 **Dire** : « Sonar analyse le code source. Sur ce projet, la plateforme le **détecte**
 mais ne prétend pas le corriger automatiquement — et c'est écrit noir sur blanc dans la
 matrice de capacités. »
-**Attendu** : métriques réelles de l'analyse.
-**Si indisponible** : dire que Sonar est en détection seule et passer — le récit
-n'en dépend pas.
+**Attendu** : les six cartes renseignées — contrôle qualité **OK**, 0 bug,
+0 vulnérabilité, **7** problèmes de maintenabilité, couverture **88,9 %**,
+statut d'analyse terminé.
+**À souligner** : « contrôle qualité OK » et « 7 code smells » ne se
+contredisent pas — les conditions du contrôle portent sur le **code nouveau**.
+Et les 7 constats sont étiquetés « correction assistée candidate », pas
+« automatisable » : un chemin existe via WF2, mais rien n'est garanti.
+**Anecdote utile** : au build précédent le contrôle valait **ERROR**, parce que
+la couverture du code nouveau était nulle. Il est passé à **OK** quand la
+couverture est arrivée. C'est un signal vivant, pas un décor.
 
 ### 6. Onglet Sécurité
 
@@ -89,10 +97,13 @@ n'en dépend pas.
 **Dire** : « Deux scanners indépendants : Trivy sur l'image construite, OWASP
 Dependency-Check sur l'arbre de dépendances. Ils ne regardent pas le même objet, et c'est
 exactement pour cela qu'on les garde tous les deux. »
-**Attendu** : les constats réels.
-**À montrer** : la vulnérabilité `zlib` de la couche Alpine — une vraie trouvaille que la
-plateforme **ne prétend pas** corriger. C'est la meilleure démonstration d'honnêteté de
-toute la soutenance.
+**Attendu** : **3 CVE Java** (une CRITICAL, une HIGH, une MEDIUM) confirmées par
+les deux scanners, **1 CVE de paquet OS**, et **1 alerte ZAP**.
+**À montrer absolument** : les deux constats que la plateforme **ne prétend pas**
+corriger — la CVE `zlib` de la couche Alpine, et l'alerte ZAP. Ce sont de
+vraies trouvailles laissées manuelles, parce que la stratégie de remédiation ne
+couvre ni les paquets OS ni les constats DAST. C'est la meilleure démonstration
+d'honnêteté de toute la soutenance.
 
 ### 7. Le constat DEMO-001
 
@@ -139,11 +150,11 @@ refactorisation : elle monte une version, et c'est tout. »
 
 ### 12. Build et tests du candidat
 
-**Attendu** : build PASS, **20 tests PASS**.
+**Attendu** : build PASS, **24 tests PASS**.
 **Dire** : « Si un seul test échouait, le candidat serait rejeté — même avec la
 vulnérabilité corrigée. La sécurité ne justifie pas de casser l'application. »
-**À garder sous la main** : le contrôle NC-1 prouve ce rejet. Si le jury demande, montrer
-`testbed/SCENARIO_MATRIX.md` § NC-1, vérifié : 22 tests, 2 échecs, BUILD FAILURE.
+**À garder sous la main** : le contrôle NC-1 prouve ce rejet. Si le jury demande,
+montrer `testbed/SCENARIO_MATRIX.md` § NC-1, vérifié : 2 échecs, BUILD FAILURE.
 
 ### 13. Fermeture de sécurité — les deux rescans
 
