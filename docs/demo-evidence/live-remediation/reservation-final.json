@@ -1,0 +1,22 @@
+{
+    "id": "7a142c85-66f8-457f-ae8e-93fbb4f8db89",
+    "state": "ACTIVE",
+    "claims": {
+        "85f4ab1d-b2ce-42ad-b8d6-6046fa7fb474": {
+            "status": "QUARANTINED",
+            "batchId": "sec-batch-e714b153-9bae-44aa-ac36-2e38ce009390",
+            "attemptId": "8443adb6-2fe5-4c50-8161-f1635aa0f5c9"
+        }
+    },
+    "createdAt": "2026-10-08T15:25:54.062995+00:00",
+    "expiresAt": null,
+    "projectId": "078b5e76-c6f3-4014-9f52-ea5e4f435399",
+    "targetKey": "[\"v1\",\"FILE\",\"pom.xml\"]",
+    "updatedAt": "2026-10-08T15:32:32.252511+00:00",
+    "releasedAt": null,
+    "targetFile": "pom.xml",
+    "ownerTaskId": "85f4ab1d-b2ce-42ad-b8d6-6046fa7fb474",
+    "ownerBatchId": "sec-batch-e714b153-9bae-44aa-ac36-2e38ce009390",
+    "releaseReason": null,
+    "ownerAttemptId": "8443adb6-2fe5-4c50-8161-f1635aa0f5c9"
+}

@@ -1,0 +1,9 @@
+ source |   ruleOrCve    | status | scannerStatus |   remediation   |       motif       
+--------+----------------+--------+---------------+-----------------+-------------------
+ OWASP  | CVE-2022-42889 | TODO   | DETECTED      | -               | -
+ OWASP  | CVE-2025-48924 | TODO   | DETECTED      | -               | -
+ TRIVY  | CVE-2022-42889 | TODO   | DETECTED      | CANDIDATE_READY | TARGET_CVE_CLOSED
+ TRIVY  | CVE-2025-48924 | TODO   | DETECTED      | -               | -
+ TRIVY  | CVE-2026-85091 | TODO   | DETECTED      | -               | -
+(5 rows)
+

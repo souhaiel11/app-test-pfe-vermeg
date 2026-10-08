@@ -1,0 +1,93 @@
+{
+    "prUrl": "https://github.com/souhaiel11/app-test-pfe-vermeg/pull/1",
+    "reason": "TARGET_CVE_CLOSED",
+    "status": "CANDIDATE_READY",
+    "batchId": "sec-batch-e714b153-9bae-44aa-ac36-2e38ce009390",
+    "attempts": [
+        {
+            "prUrl": "https://github.com/souhaiel11/app-test-pfe-vermeg/pull/1",
+            "reason": "TARGET_CVE_CLOSED",
+            "status": "CANDIDATE_READY",
+            "batchId": "sec-batch-e714b153-9bae-44aa-ac36-2e38ce009390",
+            "prNumber": 1,
+            "attemptId": "8443adb6-2fe5-4c50-8161-f1635aa0f5c9",
+            "retryable": false,
+            "startedAt": "2026-10-08T15:25:54.648Z",
+            "branchName": "security/fix/4b2fe7f8a655-e1520d20534b",
+            "finishedAt": "2026-10-08T15:32:32.255Z",
+            "reasonCode": "TARGET_CVE_CLOSED",
+            "batchStatus": "CANDIDATE_READY",
+            "executionId": "2096",
+            "candidateSha": "f9597bf8e691fb6cb803e988a0cdca6febfbc32f",
+            "evaluatedSha": "f9597bf8e691fb6cb803e988a0cdca6febfbc32f",
+            "attemptNumber": 1,
+            "patchEvidence": {
+                "oldVersion": "1.9",
+                "targetVersion": "1.10.0",
+                "provenanceKind": "DIRECT_EXPLICIT",
+                "controllingFile": "pom.xml",
+                "controllingElement": "<version>1.9</version>",
+                "controllingProperty": null
+            },
+            "reasonMessage": "Une vérification est requise avant toute nouvelle correction automatique.",
+            "candidateStatus": "CLOSED",
+            "contractVersion": 2,
+            "failureCategory": "UNKNOWN",
+            "completionDigest": "1518f8bb71fc4dfd2b71d623bbe2fe3dbd5703dca79e4d44305f84f0e3a52e97",
+            "candidateIdentity": "e1520d20534b975e4067cc9dda7352f2731fd9fbee215146d5cf48a420b5fcda",
+            "verificationEvidence": {
+                "candidateStatus": "CLOSED",
+                "securityValidationEvidence": null
+            },
+            "unresolvedGitSideEffect": true,
+            "securityValidationEvidence": null
+        }
+    ],
+    "prNumber": 1,
+    "v1_8Plan": null,
+    "attemptId": "8443adb6-2fe5-4c50-8161-f1635aa0f5c9",
+    "retryable": false,
+    "startedAt": "2026-10-08T15:25:54.648Z",
+    "updatedAt": "2026-10-08T15:32:32.255Z",
+    "branchName": "security/fix/4b2fe7f8a655-e1520d20534b",
+    "finishedAt": "2026-10-08T15:32:32.255Z",
+    "reasonCode": "TARGET_CVE_CLOSED",
+    "batchStatus": "CANDIDATE_READY",
+    "executionId": "2096",
+    "attemptCount": 1,
+    "candidateSha": "f9597bf8e691fb6cb803e988a0cdca6febfbc32f",
+    "evaluatedSha": "f9597bf8e691fb6cb803e988a0cdca6febfbc32f",
+    "attemptNumber": 1,
+    "patchEvidence": {
+        "oldVersion": "1.9",
+        "targetVersion": "1.10.0",
+        "provenanceKind": "DIRECT_EXPLICIT",
+        "controllingFile": "pom.xml",
+        "controllingElement": "<version>1.9</version>",
+        "controllingProperty": null
+    },
+    "reasonMessage": "Une vérification est requise avant toute nouvelle correction automatique.",
+    "candidateStatus": "CLOSED",
+    "contractVersion": 2,
+    "failureCategory": "UNKNOWN",
+    "completionDigest": "1518f8bb71fc4dfd2b71d623bbe2fe3dbd5703dca79e4d44305f84f0e3a52e97",
+    "candidateIdentity": "e1520d20534b975e4067cc9dda7352f2731fd9fbee215146d5cf48a420b5fcda",
+    "reservationTarget": {
+        "projectId": "078b5e76-c6f3-4014-9f52-ea5e4f435399",
+        "targetKey": "[\"v1\",\"FILE\",\"pom.xml\"]",
+        "repository": "souhaiel11/app-test-pfe-vermeg",
+        "targetFile": "pom.xml",
+        "targetType": "FILE",
+        "lockGranularity": "FILE",
+        "trustedTargetPath": "pom.xml",
+        "dependencyCoordinate": "org.apache.commons:commons-text"
+    },
+    "underlyingReasonCode": null,
+    "verificationEvidence": {
+        "candidateStatus": "CLOSED",
+        "securityValidationEvidence": null
+    },
+    "unresolvedGitSideEffect": true,
+    "securityValidationEvidence": null,
+    "legacyCallbackCompletionDigest": null
+}

@@ -1,0 +1,1375 @@
+diff --git a/docs/demo-evidence/jenkins-build-2/owasp.log.REDACTED.md b/docs/demo-evidence/jenkins-build-2/owasp.log.REDACTED.md
+deleted file mode 100644
+index ad9249e..0000000
+--- a/docs/demo-evidence/jenkins-build-2/owasp.log.REDACTED.md
++++ /dev/null
+@@ -1,36 +0,0 @@
+-# `owasp.log` — volontairement exclu du dépôt
+-
+-Le journal brut d'OWASP Dependency-Check produit par Jenkins **n'est pas versionné ici**,
+-et ce n'est pas un oubli.
+-
+-## Pourquoi
+-
+-La première ligne de ce journal contient la **clé API NVD en clair** :
+-
+-```
+-+ timeout 20m mvn org.owasp:dependency-check-maven:12.2.2:update-only \
+-    -DdataDirectory=… -DnvdApiKey=<CLE EN CLAIR> -DnvdApiDelay=2000 …
+-```
+-
+-Le masquage de Jenkins fonctionne bien dans la console (`-Dsonar.token=****`,
+-`X-API-Key: ****`), mais il ne s'applique **pas** à ce fichier : l'étape OWASP redirige
+-un bloc shell entier vers `$REPORT_BASE/owasp.log`, et la trace `set -x` du shell y est
+-écrite directement, sans passer par le filtre de masquage de Jenkins.
+-
+-Ce journal est stocké dans le volume `shared_reports`, monté à la fois dans **Jenkins** et
+-dans **n8n**.
+-
+-## Portée constatée
+-
+-**59 fichiers `owasp.log`** du volume partagé contiennent la clé, pour l'ensemble des
+-projets (`pfe-app-test`, `devsecops-testbed`, `devsecops-platform-testbed`, …). Il s'agit
+-donc d'un défaut **de la plateforme**, antérieur à ce projet et indépendant de lui.
+-
+-Signalé comme constat **P0** dans le rapport de qualification, avec sa correction.
+-Aucune valeur de clé n'est reproduite ici ni dans aucun document de ce dépôt.
+-
+-## Ce qui reste disponible comme preuve
+-
+-Le contenu utile du scan OWASP est intégralement dans
+-`dependency-check-report.json` (même répertoire), qui ne contient aucun secret —
+-vérifié.
+diff --git a/docs/demo-evidence/jenkins-build-2/payload.json b/docs/demo-evidence/jenkins-build-2/payload.json
+deleted file mode 100644
+index d7cc84e..0000000
+--- a/docs/demo-evidence/jenkins-build-2/payload.json
++++ /dev/null
+@@ -1,177 +0,0 @@
+-{
+-    "event": "pipeline_success",
+-    "job": "app-test-pfe-vermeg",
+-    "build_number": "2",
+-    "build_url": "http://172.31.172.61:8082/job/app-test-pfe-vermeg/2/",
+-    "logs_url": "http://172.31.172.61:8082/job/app-test-pfe-vermeg/2/consoleText",
+-    "branch": "main",
+-    "commit": "f9597bf8",
+-    "status": "SUCCESS",
+-    "severity_hint": "HIGH",
+-    "duration_ms": 197005,
+-    "buildStageStatus": {
+-        "build": "SUCCESS",
+-        "sonar": "SUCCESS",
+-        "docker": "SUCCESS",
+-        "tests": "SUCCESS",
+-        "trivy": "COMPLETED",
+-        "owasp": "COMPLETED",
+-        "zap": "COMPLETED"
+-    },
+-    "technicalFailure": null,
+-    "pull_request": null,
+-    "reports": {
+-        "jenkinsBasePath": "/shared/reports/app-test-pfe-vermeg/2",
+-        "basePath": "/home/node/.n8n-files/reports/app-test-pfe-vermeg/2",
+-        "trivyPath": "/home/node/.n8n-files/reports/app-test-pfe-vermeg/2/trivy-report.json",
+-        "zapPath": "/home/node/.n8n-files/reports/app-test-pfe-vermeg/2/zap-report.json",
+-        "owaspPath": "/home/node/.n8n-files/reports/app-test-pfe-vermeg/2/dependency-check-report.json",
+-        "available": {
+-            "trivy": true,
+-            "zap": true,
+-            "owasp": true
+-        }
+-    },
+-    "tests": {
+-        "status": "SUCCESS",
+-        "total": 20,
+-        "failures": 0,
+-        "skipped": 0,
+-        "coverage": null
+-    },
+-    "semanticEvidence": {
+-        "reportFormat": "JUNIT_XML",
+-        "payload": {
+-            "testcases": [
+-                {
+-                    "classname": "tn.pfe.demo.CatalogBehaviourTest",
+-                    "name": "productRejectsInvalidAmounts",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.CatalogBehaviourTest",
+-                    "name": "unserializableTypeIsRejected",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.CatalogBehaviourTest",
+-                    "name": "jsonPreservesKeyOrder",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.CatalogBehaviourTest",
+-                    "name": "jsonEscapesSpecialCharacters",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.CatalogBehaviourTest",
+-                    "name": "displayLabelAcceptsNull",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.CatalogBehaviourTest",
+-                    "name": "displayLabelNormalizesSpacing",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.CatalogBehaviourTest",
+-                    "name": "stockValueIsPriceTimesStock",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.CatalogBehaviourTest",
+-                    "name": "byIdTrimsButIsCaseSensitive",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.HealthContractTest",
+-                    "name": "healthIsDeterministic",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.HealthContractTest",
+-                    "name": "serverRejectsForeignBindAddress",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.HealthContractTest",
+-                    "name": "serverServesHealthOverHttp",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.HealthContractTest",
+-                    "name": "healthBodyIsExact",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.ProductApiTest",
+-                    "name": "unknownPathIsNotFound",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.ProductApiTest",
+-                    "name": "infoCarriesIdentityAndNotice",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.ProductApiTest",
+-                    "name": "singleProductHasExpectedShape",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.ProductApiTest",
+-                    "name": "productsListHasThreeItems",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.ProductApiTest",
+-                    "name": "unknownProductIsNotFound",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.ProductApiTest",
+-                    "name": "totalStockValueIsExact",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.ProductApiTest",
+-                    "name": "mutatingMethodIsRejected",
+-                    "status": "PASS"
+-                },
+-                {
+-                    "classname": "tn.pfe.demo.ProductApiTest",
+-                    "name": "blankProductIdIsNotFound",
+-                    "status": "PASS"
+-                }
+-            ]
+-        }
+-    },
+-    "sonar": {
+-        "project_key": "app-test-pfe-vermeg",
+-        "dashboard_url": "http://sonarqube:9000/dashboard?id=app-test-pfe-vermeg",
+-        "ceTaskId": "e49efea4-dc07-427d-88cd-5ac2e31d870a",
+-        "analysisId": null
+-    },
+-    "docker": {
+-        "image": "app-test-pfe-vermeg:2",
+-        "build_status": "SUCCESS",
+-        "image_tag": "app-test-pfe-vermeg:2",
+-        "push_status": "NOT_ATTEMPTED"
+-    },
+-    "kubernetes": {
+-        "namespace": "pfe-devsecops",
+-        "target": "http://app-test-pfe-vermeg:8080"
+-    },
+-    "zap": {
+-        "launchAttempted": true,
+-        "launchSucceeded": true,
+-        "scanStarted": true,
+-        "podObserved": true,
+-        "resultAvailable": true,
+-        "technicalCode": null,
+-        "launchErrorType": null,
+-        "launchExitCode": 0,
+-        "diagnosticMessage": null
+-    },
+-    "commitSha": "f9597bf8e691fb6cb803e988a0cdca6febfbc32f"
+-}
+\ No newline at end of file
+diff --git a/docs/demo-evidence/platform-incident-analysis-build-2.json b/docs/demo-evidence/platform-incident-analysis-build-2.json
+deleted file mode 100644
+index a778bd9..0000000
+--- a/docs/demo-evidence/platform-incident-analysis-build-2.json
++++ /dev/null
+@@ -1,1115 +0,0 @@
+-{
+-    "security": {
+-        "riskLevel": "CRITICAL",
+-        "riskScore": 92,
+-        "confidence": 0.95,
+-        "incidentId": "app-test-pfe-vermeg-2",
+-        "safeToApply": false,
+-        "securitySummary": "L'application contient une vulnérabilité CRITIQUE (CVE-2022-42889) permettant l'exécution de code à distance via Apache Commons Text 1.9. Deux vulnérabilités MEDIUM supplémentaires (CVE-2025-48924 et CVE-2026-85091) exposent l'application à des attaques par déni de service et corruption de mémoire. Les scans DAST et SonarQube n'ont détecté aucun problème supplémentaire. Le déploiement est BLOQUÉ jusqu'à la correction de la vulnérabilité critique.",
+-        "vulnerabilities": [
+-            {
+-                "ref": "CVE-2022-42889",
+-                "impact": "Exécution de code à distance (RCE) avec les privilèges de l'application. L'attaquant peut accéder aux données sensibles, modifier la base de données, installer des malwares, ou prendre le contrôle complet du serveur. Impact métier : compromission totale de la confidentialité, intégrité et disponibilité du service.",
+-                "source": "TRIVY|OWASP",
+-                "fixHint": "Mettre à jour immédiatement org.apache.commons:commons-text de 1.9 vers 1.10.0 ou supérieur dans pom.xml ou build.gradle.",
+-                "severity": "CRITICAL",
+-                "component": "org.apache.commons:commons-text 1.9",
+-                "exploitScenario": "Un attaquant injecte une chaîne de caractères malveillante contenant une interpolation de variable (ex: ${script:...} ou ${dns:...}) dans une entrée utilisateur traitée par Commons Text. L'application évalue automatiquement cette expression et exécute du code arbitraire sur le serveur."
+-            },
+-            {
+-                "ref": "CVE-2025-48924",
+-                "impact": "Déni de service (DoS) : l'application devient instable ou inaccessible. Les utilisateurs légitimes ne peuvent plus accéder au service. Impact métier : perte de disponibilité, dégradation de la réputation, perte de revenus.",
+-                "source": "TRIVY|OWASP",
+-                "fixHint": "Mettre à jour org.apache.commons:commons-lang3 de 3.12.0 vers 3.18.0 ou supérieur.",
+-                "severity": "MEDIUM",
+-                "component": "org.apache.commons:commons-lang3 3.12.0",
+-                "exploitScenario": "Un attaquant envoie une requête avec un nom de classe extrêmement long (plusieurs milliers de caractères) à une fonction ClassUtils.getClass(). La méthode entre en récursion infinie et provoque un StackOverflowError qui arrête le thread de traitement."
+-            },
+-            {
+-                "ref": "CVE-2026-85091",
+-                "impact": "Corruption de mémoire, crash de l'application, ou potentiellement exécution de code arbitraire si l'attaquant contrôle précisément le contenu du débordement. Impact métier : indisponibilité du service, risque de compromission.",
+-                "source": "TRIVY",
+-                "fixHint": "Mettre à jour zlib de 1.3.2-r0 vers 1.3.2-r1 ou supérieur dans le Dockerfile ou la configuration du conteneur.",
+-                "severity": "MEDIUM",
+-                "component": "zlib 1.3.2-r0",
+-                "exploitScenario": "Un attaquant envoie des données compressées gzip malformées qui déclenchent une opération gzwrite() non-bloquante suivie d'un appel gzprintf(). Cela provoque un débordement de buffer dans la fonction gz_vacate() qui écrit au-delà des limites de la mémoire allouée."
+-            }
+-        ]
+-    },
+-    "rootCause": {
+-        "evidence": [
+-            "TRIVY | CVE-2022-42889 | org.apache.commons:commons-text | version 1.9 → 1.10.0 requise, CVSS 9.8, blocking=true",
+-            "TRIVY | CVE-2025-48924 | org.apache.commons:commons-lang3 | version 3.12.0 → 3.18.0 requise, StackOverflowError sur entrées longues",
+-            "TRIVY | CVE-2026-85091 | zlib | version 1.3.2-r0 → 1.3.2-r1 requise, heap buffer overflow"
+-        ],
+-        "errorType": "Dépendances vulnérables critiques bloquant le déploiement",
+-        "rootCause": "La dépendance org.apache.commons:commons-text version 1.9 contient une vulnérabilité critique CVE-2022-42889 (RCE par interpolation de variables) avec CVSS 9.8. Cette vulnérabilité est marquée comme bloquante et empêche le déploiement sécurisé de l'application.",
+-        "confidence": 0.95,
+-        "incidentId": "app-test-pfe-vermeg#2",
+-        "severityScore": 9,
+-        "analysisSummary": "Le pipeline a réussi la compilation et les tests, mais le scanner de sécurité Trivy a identifié 3 vulnérabilités de dépendances, dont 1 critique (CVE-2022-42889 dans commons-text 1.9 avec CVSS 9.8 permettant une RCE). Cette vulnérabilité est marquée comme bloquante (blocking=true) et empêche le déploiement. En parallèle, SonarQube rapporte 7 code smells (dont 2 critiques) mais ceux-ci ne sont pas bloquants. La qualité du code est secondaire face au risque de sécurité critique.",
+-        "affectedComponent": "Dépendances Maven / Trivy Scanner",
+-        "whatHappenedForDev": "Votre application contient trois dépendances vulnérables détectées par Trivy. La plus critique est commons-text 1.9 qui permet une exécution de code à distance (RCE) via interpolation de variables non contrôlée. Cette vulnérabilité bloque le déploiement car elle est marquée comme critique (CVSS 9.8). Vous devez mettre à jour immédiatement commons-text vers 1.10.0, commons-lang3 vers 3.18.0, et zlib vers 1.3.2-r1."
+-    },
+-    "remediation": {
+-        "fixSteps": [
+-            "Mettre à jour commons-text de 1.9 à 1.10.0 dans pom.xml : remplacer <version>1.9</version> par <version>1.10.0</version>",
+-            "Extraire la constante NOT_FOUND dans App.java : ajouter private static final String NOT_FOUND = \"not_found\"; et remplacer les 3 occurrences ligne 95",
+-            "Refactoriser Json.java ligne 48 : extraire la logique complexe en méthodes privées pour réduire la complexité cognitive de 16 à 15 maximum",
+-            "Exécuter mvn clean verify -DskipTests && mvn sonar:sonar pour valider les corrections et mettre à jour SonarQube"
+-        ],
+-        "codePatch": "",
+-        "confidence": 0.95,
+-        "incidentId": "app-test-pfe-vermeg-2-critical-remediation",
+-        "autoFixable": false,
+-        "fixDescription": "Remédiation des trois problèmes critiques bloquants : vulnérabilité RCE CVE-2022-42889 dans commons-text 1.9, complexité cognitive excessive dans Json.java ligne 48 (S3776), et duplication de littéral \"not_found\" dans App.java ligne 95 (S1192). La vulnérabilité CVE-2022-42889 présente un risque d'exécution de code à distance avec score CVSS 9.8 et doit être traitée en priorité absolue. Les deux violations SonarQube bloquent la qualité du code et doivent être corrigées par refactorisation du code source."
+-    },
+-    "enrichedData": {
+-        "zap": {
+-            "error": "",
+-            "owner": null,
+-            "route": "NONE",
+-            "alerts": [
+-            ],
+-            "status": "COMPLETED",
+-            "_source": "local_file",
+-            "evidence": [
+-            ],
+-            "executed": true,
+-            "findings": [
+-            ],
+-            "completed": true,
+-            "scanState": "COMPLETED_ZERO_FINDINGS",
+-            "alerts_low": 0,
+-            "target_url": "",
+-            "alerts_high": 0,
+-            "alerts_count": 0,
+-            "findingCount": 0,
+-            "problemClass": null,
+-            "alerts_medium": 0,
+-            "technicalCode": null,
+-            "diagnostic_url": null,
+-            "diagnostic_path": null,
+-            "resultAvailable": true,
+-            "rootCauseCategory": null
+-        },
+-        "build": {
+-            "job": "app-test-pfe-vermeg",
+-            "url": "http://172.31.172.61:8082/job/app-test-pfe-vermeg/2/",
+-            "number": 2,
+-            "status": "SUCCESS"
+-        },
+-        "owasp": {
+-            "cves": [
+-                {
+-                    "id": "CVE-2025-48924",
+-                    "cve": "CVE-2025-48924",
+-                    "pkg": "commons-lang3-3.12.0.jar",
+-                    "cvss": 5.3,
+-                    "file": "commons-lang3-3.12.0.jar",
+-                    "line": null,
+-                    "stage": "owasp",
+-                    "title": "CVE-2025-48924",
+-                    "source": "OWASP",
+-                    "package": "commons-lang3-3.12.0.jar",
+-                    "blocking": false,
+-                    "category": "DEPENDENCY",
+-                    "evidence": "https://lists.debian.org/debian-lts-announce/2025/08/msg00000.html",
+-                    "severity": "MEDIUM",
+-                    "dependency": "commons-lang3-3.12.0.jar",
+-                    "primaryUrl": "https://lists.debian.org/debian-lts-announce/2025/08/msg00000.html",
+-                    "description": "Uncontrolled Recursion vulnerability in Apache Commons Lang.\n\nThis issue affects Apache Commons Lang: Starting with commons-lang:commons-lang 2.0 to 2.6, and, from org.apache.commons:commons-lang3 3.0 before 3.18.0.\n\nThe methods ClassUtils.getClass(...) can throw StackOverflowError on very long inputs. Because an Error is usually not handled by applications and libraries, a \nStackOverflowError cou",
+-                    "fixedVersion": null,
+-                    "recommendation": null,
+-                    "remediationType": "DEVELOPER_ACTION_REQUIRED",
+-                    "installedVersion": null
+-                },
+-                {
+-                    "id": "CVE-2022-42889",
+-                    "cve": "CVE-2022-42889",
+-                    "pkg": "commons-text-1.9.jar",
+-                    "cvss": 9.8,
+-                    "file": "commons-text-1.9.jar",
+-                    "line": null,
+-                    "stage": "owasp",
+-                    "title": "CVE-2022-42889",
+-                    "source": "OWASP",
+-                    "package": "commons-text-1.9.jar",
+-                    "blocking": true,
+-                    "category": "DEPENDENCY",
+-                    "evidence": "http://packetstormsecurity.com/files/176650/Apache-Commons-Text-1.9-Remote-Code-Execution.html",
+-                    "severity": "CRITICAL",
+-                    "dependency": "commons-text-1.9.jar",
+-                    "primaryUrl": "http://packetstormsecurity.com/files/176650/Apache-Commons-Text-1.9-Remote-Code-Execution.html",
+-                    "description": "Apache Commons Text performs variable interpolation, allowing properties to be dynamically evaluated and expanded. The standard format for interpolation is \"${prefix:name}\", where \"prefix\" is used to locate an instance of org.apache.commons.text.lookup.StringLookup that performs the interpolation. Starting with version 1.5 and continuing through 1.9, the set of default Lookup instances included in",
+-                    "fixedVersion": null,
+-                    "recommendation": null,
+-                    "remediationType": "DEVELOPER_ACTION_REQUIRED",
+-                    "installedVersion": null
+-                }
+-            ],
+-            "high": 0,
+-            "error": "",
+-            "owner": null,
+-            "route": "NONE",
+-            "status": "COMPLETED",
+-            "_source": "local_file",
+-            "critical": 1,
+-            "evidence": [
+-            ],
+-            "executed": true,
+-            "completed": true,
+-            "scanState": "COMPLETED_WITH_FINDINGS",
+-            "cves_count": 2,
+-            "findingCount": 2,
+-            "problemClass": null,
+-            "technicalCode": null,
+-            "resultAvailable": true
+-        },
+-        "sonar": {
+-            "bugs": 0,
+-            "error": "",
+-            "owner": null,
+-            "route": "NONE",
+-            "total": 7,
+-            "issues": [
+-                {
+-                    "id": "f86dc303-5ad3-47d9-b555-1f48b0ff3361",
+-                    "file": "src/main/java/tn/pfe/demo/App.java",
+-                    "line": 58,
+-                    "rule": "java:S6204",
+-                    "stage": "sonar",
+-                    "title": "Replace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.",
+-                    "source": "SONARQUBE",
+-                    "message": "Replace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.",
+-                    "blocking": false,
+-                    "category": "CODE_SMELL",
+-                    "evidence": "f86dc303-5ad3-47d9-b555-1f48b0ff3361",
+-                    "severity": "MAJOR",
+-                    "description": "Replace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.",
+-                    "recommendation": null,
+-                    "remediationType": "AUTO_FIX_ELIGIBLE"
+-                },
+-                {
+-                    "id": "8ec3f0cb-1699-4d16-bd14-ce3e0cf8b165",
+-                    "file": "src/main/java/tn/pfe/demo/App.java",
+-                    "line": 95,
+-                    "rule": "java:S1192",
+-                    "stage": "sonar",
+-                    "title": "Define a constant instead of duplicating this literal \"not_found\" 3 times.",
+-                    "source": "SONARQUBE",
+-                    "message": "Define a constant instead of duplicating this literal \"not_found\" 3 times.",
+-                    "blocking": true,
+-                    "category": "CODE_SMELL",
+-                    "evidence": "8ec3f0cb-1699-4d16-bd14-ce3e0cf8b165",
+-                    "severity": "CRITICAL",
+-                    "description": "Define a constant instead of duplicating this literal \"not_found\" 3 times.",
+-                    "recommendation": null,
+-                    "remediationType": "AUTO_FIX_ELIGIBLE"
+-                },
+-                {
+-                    "id": "5ab824ae-558a-4149-a750-bc0b9727330c",
+-                    "file": "src/main/java/tn/pfe/demo/App.java",
+-                    "line": 133,
+-                    "rule": "java:S106",
+-                    "stage": "sonar",
+-                    "title": "Replace this use of System.out by a logger.",
+-                    "source": "SONARQUBE",
+-                    "message": "Replace this use of System.out by a logger.",
+-                    "blocking": false,
+-                    "category": "CODE_SMELL",
+-                    "evidence": "5ab824ae-558a-4149-a750-bc0b9727330c",
+-                    "severity": "MAJOR",
+-                    "description": "Replace this use of System.out by a logger.",
+-                    "recommendation": null,
+-                    "remediationType": "AUTO_FIX_ELIGIBLE"
+-                },
+-                {
+-                    "id": "042173c2-34cd-499d-a799-7cd17e849b55",
+-                    "file": "src/main/java/tn/pfe/demo/App.java",
+-                    "line": 138,
+-                    "rule": "java:S106",
+-                    "stage": "sonar",
+-                    "title": "Replace this use of System.out by a logger.",
+-                    "source": "SONARQUBE",
+-                    "message": "Replace this use of System.out by a logger.",
+-                    "blocking": false,
+-                    "category": "CODE_SMELL",
+-                    "evidence": "042173c2-34cd-499d-a799-7cd17e849b55",
+-                    "severity": "MAJOR",
+-                    "description": "Replace this use of System.out by a logger.",
+-                    "recommendation": null,
+-                    "remediationType": "AUTO_FIX_ELIGIBLE"
+-                },
+-                {
+-                    "id": "081bcb5e-8d27-426c-9589-08a94f366a96",
+-                    "file": "src/main/java/tn/pfe/demo/Json.java",
+-                    "line": 48,
+-                    "rule": "java:S3776",
+-                    "stage": "sonar",
+-                    "title": "Refactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.",
+-                    "source": "SONARQUBE",
+-                    "message": "Refactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.",
+-                    "blocking": true,
+-                    "category": "CODE_SMELL",
+-                    "evidence": "081bcb5e-8d27-426c-9589-08a94f366a96",
+-                    "severity": "CRITICAL",
+-                    "description": "Refactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.",
+-                    "recommendation": null,
+-                    "remediationType": "AUTO_FIX_ELIGIBLE"
+-                },
+-                {
+-                    "id": "4322eb2b-44f9-485a-b639-f695ee837b19",
+-                    "file": "src/main/java/tn/pfe/demo/Product.java",
+-                    "line": 10,
+-                    "rule": "java:S6206",
+-                    "stage": "sonar",
+-                    "title": "Refactor this class declaration to use 'record Product(String id, String label, int priceCents, int stock)'.",
+-                    "source": "SONARQUBE",
+-                    "message": "Refactor this class declaration to use 'record Product(String id, String label, int priceCents, int stock)'.",
+-                    "blocking": false,
+-                    "category": "CODE_SMELL",
+-                    "evidence": "4322eb2b-44f9-485a-b639-f695ee837b19",
+-                    "severity": "MAJOR",
+-                    "description": "Refactor this class declaration to use 'record Product(String id, String label, int priceCents, int stock)'.",
+-                    "recommendation": null,
+-                    "remediationType": "AUTO_FIX_ELIGIBLE"
+-                },
+-                {
+-                    "id": "1cb8fffb-02cb-42cc-a72a-655e801683ce",
+-                    "file": "src/test/java/tn/pfe/demo/CatalogBehaviourTest.java",
+-                    "line": 77,
+-                    "rule": "java:S5778",
+-                    "stage": "sonar",
+-                    "title": "Refactor the code of the lambda to have only one invocation possibly throwing a runtime exception.",
+-                    "source": "SONARQUBE",
+-                    "message": "Refactor the code of the lambda to have only one invocation possibly throwing a runtime exception.",
+-                    "blocking": false,
+-                    "category": "CODE_SMELL",
+-                    "evidence": "1cb8fffb-02cb-42cc-a72a-655e801683ce",
+-                    "severity": "MAJOR",
+-                    "description": "Refactor the code of the lambda to have only one invocation possibly throwing a runtime exception.",
+-                    "recommendation": null,
+-                    "remediationType": "AUTO_FIX_ELIGIBLE"
+-                }
+-            ],
+-            "status": "COMPLETED",
+-            "ceTaskId": "e49efea4-dc07-427d-88cd-5ac2e31d870a",
+-            "complete": true,
+-            "coverage": 0,
+-            "evidence": [
+-            ],
+-            "executed": true,
+-            "pageSize": 500,
+-            "completed": false,
+-            "scanState": "COMPLETED_WITH_FINDINGS",
+-            "analysisId": null,
+-            "code_smells": 7,
+-            "findingCount": 7,
+-            "issues_count": 7,
+-            "problemClass": null,
+-            "quality_gate": "QUALITY_GATE_UNAVAILABLE",
+-            "snapshotError": null,
+-            "technicalCode": null,
+-            "collectedCount": 7,
+-            "resultAvailable": false,
+-            "vulnerabilities": 0,
+-            "analysisSubmitted": true,
+-            "findingsAvailable": true,
+-            "correlationVerified": false,
+-            "qualityGateResolved": false
+-        },
+-        "tests": {
+-            "total": 20,
+-            "status": "SUCCESS",
+-            "skipped": 0,
+-            "coverage": 0,
+-            "failures": 0
+-        },
+-        "trivy": {
+-            "cves": [
+-                {
+-                    "id": "CVE-2026-85091",
+-                    "cve": "CVE-2026-85091",
+-                    "pkg": "zlib",
+-                    "cvss": null,
+-                    "file": null,
+-                    "line": null,
+-                    "stage": "trivy",
+-                    "title": "zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow vul ...",
+-                    "source": "TRIVY",
+-                    "package": "zlib",
+-                    "blocking": false,
+-                    "category": "VULNERABILITY",
+-                    "evidence": "https://avd.aquasec.com/nvd/cve-2026-85091",
+-                    "severity": "MEDIUM",
+-                    "dependency": "zlib",
+-                    "primaryUrl": "https://avd.aquasec.com/nvd/cve-2026-85091",
+-                    "description": "zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow vulnerability in the gz_vacate() function when processing non-blocking gzwrite() operations with stale external buffer pointers. Attackers can trigger the overflow by calling gzprintf() or gzvprintf() after a write stall, causing an unchecked memmove() to write beyond the internal input buffer boundary.",
+-                    "fixedVersion": "1.3.2-r1",
+-                    "recommendation": "Upgrade to 1.3.2-r1",
+-                    "remediationType": "DEVELOPER_ACTION_REQUIRED",
+-                    "installedVersion": "1.3.2-r0"
+-                },
+-                {
+-                    "id": "CVE-2025-48924",
+-                    "cve": "CVE-2025-48924",
+-                    "pkg": "org.apache.commons:commons-lang3",
+-                    "cvss": 3.7,
+-                    "file": null,
+-                    "line": null,
+-                    "stage": "trivy",
+-                    "title": "commons-lang/commons-lang: org.apache.commons/commons-lang3: Uncontrolled Recursion vulnerability in Apache Commons Lang",
+-                    "source": "TRIVY",
+-                    "package": "org.apache.commons:commons-lang3",
+-                    "blocking": false,
+-                    "category": "VULNERABILITY",
+-                    "evidence": "https://avd.aquasec.com/nvd/cve-2025-48924",
+-                    "severity": "MEDIUM",
+-                    "dependency": "org.apache.commons:commons-lang3",
+-                    "primaryUrl": "https://avd.aquasec.com/nvd/cve-2025-48924",
+-                    "description": "Uncontrolled Recursion vulnerability in Apache Commons Lang.\n\nThis issue affects Apache Commons Lang: Starting with commons-lang:commons-lang 2.0 to 2.6, and, from org.apache.commons:commons-lang3 3.0 before 3.18.0.\n\nThe methods ClassUtils.getClass(...) can throw StackOverflowError on very long inputs. Because an Error is usually not handled by applications and libraries, a \nStackOverflowError cou",
+-                    "fixedVersion": "3.18.0",
+-                    "recommendation": "Upgrade to 3.18.0",
+-                    "remediationType": "DEVELOPER_ACTION_REQUIRED",
+-                    "installedVersion": "3.12.0"
+-                },
+-                {
+-                    "id": "CVE-2022-42889",
+-                    "cve": "CVE-2022-42889",
+-                    "pkg": "org.apache.commons:commons-text",
+-                    "cvss": 9.8,
+-                    "file": null,
+-                    "line": null,
+-                    "stage": "trivy",
+-                    "title": "apache-commons-text: variable interpolation RCE",
+-                    "source": "TRIVY",
+-                    "package": "org.apache.commons:commons-text",
+-                    "blocking": true,
+-                    "category": "VULNERABILITY",
+-                    "evidence": "https://avd.aquasec.com/nvd/cve-2022-42889",
+-                    "severity": "CRITICAL",
+-                    "dependency": "org.apache.commons:commons-text",
+-                    "primaryUrl": "https://avd.aquasec.com/nvd/cve-2022-42889",
+-                    "description": "Apache Commons Text performs variable interpolation, allowing properties to be dynamically evaluated and expanded. The standard format for interpolation is \"${prefix:name}\", where \"prefix\" is used to locate an instance of org.apache.commons.text.lookup.StringLookup that performs the interpolation. Starting with version 1.5 and continuing through 1.9, the set of default Lookup instances included in",
+-                    "fixedVersion": "1.10.0",
+-                    "recommendation": "Upgrade to 1.10.0",
+-                    "remediationType": "DEVELOPER_ACTION_REQUIRED",
+-                    "installedVersion": "1.9"
+-                }
+-            ],
+-            "high": 0,
+-            "error": "",
+-            "owner": null,
+-            "route": "NONE",
+-            "status": "COMPLETED",
+-            "_source": "local_file",
+-            "critical": 1,
+-            "evidence": [
+-            ],
+-            "executed": true,
+-            "completed": true,
+-            "scanState": "COMPLETED_WITH_FINDINGS",
+-            "cves_count": 3,
+-            "findingCount": 3,
+-            "problemClass": null,
+-            "technicalCode": null,
+-            "resultAvailable": true
+-        },
+-        "deploy": {
+-            "status": "UNKNOWN",
+-            "app_url": ""
+-        },
+-        "docker": {
+-            "image_tag": "app-test-pfe-vermeg:2",
+-            "push_status": "NOT_ATTEMPTED",
+-            "build_status": "SUCCESS"
+-        },
+-        "stages": {
+-            "zap": {
+-                "owner": null,
+-                "route": "NONE",
+-                "stage": "zap",
+-                "source": "ZAP",
+-                "status": "PASSED",
+-                "message": "",
+-                "blocking": false,
+-                "evidence": [
+-                ],
+-                "executed": true,
+-                "findings": [
+-                ],
+-                "completed": true,
+-                "findingCount": 0,
+-                "problemClass": null,
+-                "technicalCode": null,
+-                "resultAvailable": true
+-            },
+-            "build": {
+-                "owner": null,
+-                "route": "NONE",
+-                "stage": "build",
+-                "source": "JENKINS",
+-                "status": "PASSED",
+-                "message": "SUCCESS",
+-                "blocking": false,
+-                "evidence": [
+-                ],
+-                "executed": true,
+-                "findings": [
+-                ],
+-                "findingCount": 0,
+-                "problemClass": null,
+-                "technicalCode": null
+-            },
+-            "owasp": {
+-                "owner": null,
+-                "route": "NONE",
+-                "stage": "owasp",
+-                "source": "OWASP",
+-                "status": "FAILED",
+-                "message": "",
+-                "blocking": true,
+-                "evidence": [
+-                ],
+-                "executed": true,
+-                "findings": [
+-                    {
+-                        "id": "CVE-2025-48924",
+-                        "cve": "CVE-2025-48924",
+-                        "pkg": "commons-lang3-3.12.0.jar",
+-                        "cvss": 5.3,
+-                        "file": "commons-lang3-3.12.0.jar",
+-                        "line": null,
+-                        "stage": "owasp",
+-                        "title": "CVE-2025-48924",
+-                        "source": "OWASP",
+-                        "package": "commons-lang3-3.12.0.jar",
+-                        "blocking": false,
+-                        "category": "DEPENDENCY",
+-                        "evidence": "https://lists.debian.org/debian-lts-announce/2025/08/msg00000.html",
+-                        "severity": "MEDIUM",
+-                        "dependency": "commons-lang3-3.12.0.jar",
+-                        "primaryUrl": "https://lists.debian.org/debian-lts-announce/2025/08/msg00000.html",
+-                        "description": "Uncontrolled Recursion vulnerability in Apache Commons Lang.\n\nThis issue affects Apache Commons Lang: Starting with commons-lang:commons-lang 2.0 to 2.6, and, from org.apache.commons:commons-lang3 3.0 before 3.18.0.\n\nThe methods ClassUtils.getClass(...) can throw StackOverflowError on very long inputs. Because an Error is usually not handled by applications and libraries, a \nStackOverflowError cou",
+-                        "fixedVersion": null,
+-                        "recommendation": null,
+-                        "remediationType": "DEVELOPER_ACTION_REQUIRED",
+-                        "installedVersion": null
+-                    },
+-                    {
+-                        "id": "CVE-2022-42889",
+-                        "cve": "CVE-2022-42889",
+-                        "pkg": "commons-text-1.9.jar",
+-                        "cvss": 9.8,
+-                        "file": "commons-text-1.9.jar",
+-                        "line": null,
+-                        "stage": "owasp",
+-                        "title": "CVE-2022-42889",
+-                        "source": "OWASP",
+-                        "package": "commons-text-1.9.jar",
+-                        "blocking": true,
+-                        "category": "DEPENDENCY",
+-                        "evidence": "http://packetstormsecurity.com/files/176650/Apache-Commons-Text-1.9-Remote-Code-Execution.html",
+-                        "severity": "CRITICAL",
+-                        "dependency": "commons-text-1.9.jar",
+-                        "primaryUrl": "http://packetstormsecurity.com/files/176650/Apache-Commons-Text-1.9-Remote-Code-Execution.html",
+-                        "description": "Apache Commons Text performs variable interpolation, allowing properties to be dynamically evaluated and expanded. The standard format for interpolation is \"${prefix:name}\", where \"prefix\" is used to locate an instance of org.apache.commons.text.lookup.StringLookup that performs the interpolation. Starting with version 1.5 and continuing through 1.9, the set of default Lookup instances included in",
+-                        "fixedVersion": null,
+-                        "recommendation": null,
+-                        "remediationType": "DEVELOPER_ACTION_REQUIRED",
+-                        "installedVersion": null
+-                    }
+-                ],
+-                "completed": true,
+-                "findingCount": 2,
+-                "problemClass": null,
+-                "technicalCode": null,
+-                "resultAvailable": true
+-            },
+-            "sonar": {
+-                "owner": null,
+-                "route": "NONE",
+-                "stage": "sonar",
+-                "source": "SONAR",
+-                "status": "FAILED",
+-                "message": "Quality Gate QUALITY_GATE_UNAVAILABLE",
+-                "blocking": true,
+-                "evidence": [
+-                ],
+-                "executed": true,
+-                "findings": [
+-                    {
+-                        "id": "f86dc303-5ad3-47d9-b555-1f48b0ff3361",
+-                        "file": "src/main/java/tn/pfe/demo/App.java",
+-                        "line": 58,
+-                        "rule": "java:S6204",
+-                        "stage": "sonar",
+-                        "title": "Replace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.",
+-                        "source": "SONARQUBE",
+-                        "message": "Replace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.",
+-                        "blocking": false,
+-                        "category": "CODE_SMELL",
+-                        "evidence": "f86dc303-5ad3-47d9-b555-1f48b0ff3361",
+-                        "severity": "MAJOR",
+-                        "description": "Replace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.",
+-                        "recommendation": null,
+-                        "remediationType": "AUTO_FIX_ELIGIBLE"
+-                    },
+-                    {
+-                        "id": "8ec3f0cb-1699-4d16-bd14-ce3e0cf8b165",
+-                        "file": "src/main/java/tn/pfe/demo/App.java",
+-                        "line": 95,
+-                        "rule": "java:S1192",
+-                        "stage": "sonar",
+-                        "title": "Define a constant instead of duplicating this literal \"not_found\" 3 times.",
+-                        "source": "SONARQUBE",
+-                        "message": "Define a constant instead of duplicating this literal \"not_found\" 3 times.",
+-                        "blocking": true,
+-                        "category": "CODE_SMELL",
+-                        "evidence": "8ec3f0cb-1699-4d16-bd14-ce3e0cf8b165",
+-                        "severity": "CRITICAL",
+-                        "description": "Define a constant instead of duplicating this literal \"not_found\" 3 times.",
+-                        "recommendation": null,
+-                        "remediationType": "AUTO_FIX_ELIGIBLE"
+-                    },
+-                    {
+-                        "id": "5ab824ae-558a-4149-a750-bc0b9727330c",
+-                        "file": "src/main/java/tn/pfe/demo/App.java",
+-                        "line": 133,
+-                        "rule": "java:S106",
+-                        "stage": "sonar",
+-                        "title": "Replace this use of System.out by a logger.",
+-                        "source": "SONARQUBE",
+-                        "message": "Replace this use of System.out by a logger.",
+-                        "blocking": false,
+-                        "category": "CODE_SMELL",
+-                        "evidence": "5ab824ae-558a-4149-a750-bc0b9727330c",
+-                        "severity": "MAJOR",
+-                        "description": "Replace this use of System.out by a logger.",
+-                        "recommendation": null,
+-                        "remediationType": "AUTO_FIX_ELIGIBLE"
+-                    },
+-                    {
+-                        "id": "042173c2-34cd-499d-a799-7cd17e849b55",
+-                        "file": "src/main/java/tn/pfe/demo/App.java",
+-                        "line": 138,
+-                        "rule": "java:S106",
+-                        "stage": "sonar",
+-                        "title": "Replace this use of System.out by a logger.",
+-                        "source": "SONARQUBE",
+-                        "message": "Replace this use of System.out by a logger.",
+-                        "blocking": false,
+-                        "category": "CODE_SMELL",
+-                        "evidence": "042173c2-34cd-499d-a799-7cd17e849b55",
+-                        "severity": "MAJOR",
+-                        "description": "Replace this use of System.out by a logger.",
+-                        "recommendation": null,
+-                        "remediationType": "AUTO_FIX_ELIGIBLE"
+-                    },
+-                    {
+-                        "id": "081bcb5e-8d27-426c-9589-08a94f366a96",
+-                        "file": "src/main/java/tn/pfe/demo/Json.java",
+-                        "line": 48,
+-                        "rule": "java:S3776",
+-                        "stage": "sonar",
+-                        "title": "Refactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.",
+-                        "source": "SONARQUBE",
+-                        "message": "Refactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.",
+-                        "blocking": true,
+-                        "category": "CODE_SMELL",
+-                        "evidence": "081bcb5e-8d27-426c-9589-08a94f366a96",
+-                        "severity": "CRITICAL",
+-                        "description": "Refactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.",
+-                        "recommendation": null,
+-                        "remediationType": "AUTO_FIX_ELIGIBLE"
+-                    },
+-                    {
+-                        "id": "4322eb2b-44f9-485a-b639-f695ee837b19",
+-                        "file": "src/main/java/tn/pfe/demo/Product.java",
+-                        "line": 10,
+-                        "rule": "java:S6206",
+-                        "stage": "sonar",
+-                        "title": "Refactor this class declaration to use 'record Product(String id, String label, int priceCents, int stock)'.",
+-                        "source": "SONARQUBE",
+-                        "message": "Refactor this class declaration to use 'record Product(String id, String label, int priceCents, int stock)'.",
+-                        "blocking": false,
+-                        "category": "CODE_SMELL",
+-                        "evidence": "4322eb2b-44f9-485a-b639-f695ee837b19",
+-                        "severity": "MAJOR",
+-                        "description": "Refactor this class declaration to use 'record Product(String id, String label, int priceCents, int stock)'.",
+-                        "recommendation": null,
+-                        "remediationType": "AUTO_FIX_ELIGIBLE"
+-                    },
+-                    {
+-                        "id": "1cb8fffb-02cb-42cc-a72a-655e801683ce",
+-                        "file": "src/test/java/tn/pfe/demo/CatalogBehaviourTest.java",
+-                        "line": 77,
+-                        "rule": "java:S5778",
+-                        "stage": "sonar",
+-                        "title": "Refactor the code of the lambda to have only one invocation possibly throwing a runtime exception.",
+-                        "source": "SONARQUBE",
+-                        "message": "Refactor the code of the lambda to have only one invocation possibly throwing a runtime exception.",
+-                        "blocking": false,
+-                        "category": "CODE_SMELL",
+-                        "evidence": "1cb8fffb-02cb-42cc-a72a-655e801683ce",
+-                        "severity": "MAJOR",
+-                        "description": "Refactor the code of the lambda to have only one invocation possibly throwing a runtime exception.",
+-                        "recommendation": null,
+-                        "remediationType": "AUTO_FIX_ELIGIBLE"
+-                    }
+-                ],
+-                "completed": false,
+-                "findingCount": 7,
+-                "problemClass": null,
+-                "technicalCode": null,
+-                "resultAvailable": false
+-            },
+-            "tests": {
+-                "stage": "tests",
+-                "source": "JENKINS",
+-                "status": "PASSED",
+-                "message": "SUCCESS",
+-                "blocking": false,
+-                "executed": true,
+-                "findings": [
+-                ],
+-                "findingCount": 0
+-            },
+-            "trivy": {
+-                "owner": null,
+-                "route": "NONE",
+-                "stage": "trivy",
+-                "source": "TRIVY",
+-                "status": "FAILED",
+-                "message": "",
+-                "blocking": true,
+-                "evidence": [
+-                ],
+-                "executed": true,
+-                "findings": [
+-                    {
+-                        "id": "CVE-2026-85091",
+-                        "cve": "CVE-2026-85091",
+-                        "pkg": "zlib",
+-                        "cvss": null,
+-                        "file": null,
+-                        "line": null,
+-                        "stage": "trivy",
+-                        "title": "zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow vul ...",
+-                        "source": "TRIVY",
+-                        "package": "zlib",
+-                        "blocking": false,
+-                        "category": "VULNERABILITY",
+-                        "evidence": "https://avd.aquasec.com/nvd/cve-2026-85091",
+-                        "severity": "MEDIUM",
+-                        "dependency": "zlib",
+-                        "primaryUrl": "https://avd.aquasec.com/nvd/cve-2026-85091",
+-                        "description": "zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow vulnerability in the gz_vacate() function when processing non-blocking gzwrite() operations with stale external buffer pointers. Attackers can trigger the overflow by calling gzprintf() or gzvprintf() after a write stall, causing an unchecked memmove() to write beyond the internal input buffer boundary.",
+-                        "fixedVersion": "1.3.2-r1",
+-                        "recommendation": "Upgrade to 1.3.2-r1",
+-                        "remediationType": "DEVELOPER_ACTION_REQUIRED",
+-                        "installedVersion": "1.3.2-r0"
+-                    },
+-                    {
+-                        "id": "CVE-2025-48924",
+-                        "cve": "CVE-2025-48924",
+-                        "pkg": "org.apache.commons:commons-lang3",
+-                        "cvss": 3.7,
+-                        "file": null,
+-                        "line": null,
+-                        "stage": "trivy",
+-                        "title": "commons-lang/commons-lang: org.apache.commons/commons-lang3: Uncontrolled Recursion vulnerability in Apache Commons Lang",
+-                        "source": "TRIVY",
+-                        "package": "org.apache.commons:commons-lang3",
+-                        "blocking": false,
+-                        "category": "VULNERABILITY",
+-                        "evidence": "https://avd.aquasec.com/nvd/cve-2025-48924",
+-                        "severity": "MEDIUM",
+-                        "dependency": "org.apache.commons:commons-lang3",
+-                        "primaryUrl": "https://avd.aquasec.com/nvd/cve-2025-48924",
+-                        "description": "Uncontrolled Recursion vulnerability in Apache Commons Lang.\n\nThis issue affects Apache Commons Lang: Starting with commons-lang:commons-lang 2.0 to 2.6, and, from org.apache.commons:commons-lang3 3.0 before 3.18.0.\n\nThe methods ClassUtils.getClass(...) can throw StackOverflowError on very long inputs. Because an Error is usually not handled by applications and libraries, a \nStackOverflowError cou",
+-                        "fixedVersion": "3.18.0",
+-                        "recommendation": "Upgrade to 3.18.0",
+-                        "remediationType": "DEVELOPER_ACTION_REQUIRED",
+-                        "installedVersion": "3.12.0"
+-                    },
+-                    {
+-                        "id": "CVE-2022-42889",
+-                        "cve": "CVE-2022-42889",
+-                        "pkg": "org.apache.commons:commons-text",
+-                        "cvss": 9.8,
+-                        "file": null,
+-                        "line": null,
+-                        "stage": "trivy",
+-                        "title": "apache-commons-text: variable interpolation RCE",
+-                        "source": "TRIVY",
+-                        "package": "org.apache.commons:commons-text",
+-                        "blocking": true,
+-                        "category": "VULNERABILITY",
+-                        "evidence": "https://avd.aquasec.com/nvd/cve-2022-42889",
+-                        "severity": "CRITICAL",
+-                        "dependency": "org.apache.commons:commons-text",
+-                        "primaryUrl": "https://avd.aquasec.com/nvd/cve-2022-42889",
+-                        "description": "Apache Commons Text performs variable interpolation, allowing properties to be dynamically evaluated and expanded. The standard format for interpolation is \"${prefix:name}\", where \"prefix\" is used to locate an instance of org.apache.commons.text.lookup.StringLookup that performs the interpolation. Starting with version 1.5 and continuing through 1.9, the set of default Lookup instances included in",
+-                        "fixedVersion": "1.10.0",
+-                        "recommendation": "Upgrade to 1.10.0",
+-                        "remediationType": "DEVELOPER_ACTION_REQUIRED",
+-                        "installedVersion": "1.9"
+-                    }
+-                ],
+-                "completed": true,
+-                "findingCount": 3,
+-                "problemClass": null,
+-                "technicalCode": null,
+-                "resultAvailable": true
+-            },
+-            "deploy": {
+-                "stage": "deploy",
+-                "source": "JENKINS",
+-                "status": "NOT_RUN",
+-                "message": "UNKNOWN",
+-                "blocking": false,
+-                "executed": false,
+-                "findings": [
+-                ],
+-                "findingCount": 0
+-            },
+-            "docker": {
+-                "stage": "docker",
+-                "source": "DOCKER",
+-                "status": "PASSED",
+-                "message": "SUCCESS",
+-                "blocking": false,
+-                "executed": true,
+-                "findings": [
+-                ],
+-                "findingCount": 0
+-            }
+-        },
+-        "stageModelVersion": "1.1"
+-    },
+-    "developerGuide": {
+-        "issues": [
+-            {
+-                "id": "CVE-2022-42889",
+-                "file": "pom.xml",
+-                "line": 0,
+-                "rule": "CVE-2022-42889",
+-                "title": "Exécution de code à distance via commons-text 1.9 (Text4Shell)",
+-                "source": "TRIVY",
+-                "problem": "La bibliothèque Apache Commons Text en version 1.9 contient une vulnérabilité critique dite 'Text4Shell'. Lorsque la méthode StringSubstitutor est utilisée avec des entrées non fiables, certains préfixes d'interpolation (comme ${script:}, ${dns:}, ${url:}) permettent à un attaquant d'exécuter du code arbitraire sur le serveur. Cette faille est confirmée à la fois par Trivy et OWASP Dependency-Check.",
+-                "blocking": true,
+-                "category": "DEPENDENCY",
+-                "howToFix": [
+-                    "Ouvrir le fichier pom.xml à la racine du projet",
+-                    "Localiser la dépendance org.apache.commons:commons-text et changer la version de 1.9 à 1.10.0 (ou supérieure)",
+-                    "Lancer 'mvn dependency:tree | grep commons-text' pour vérifier qu'aucune dépendance transitive ne réintroduit la version vulnérable",
+-                    "Lancer 'mvn clean package' pour recompiler et vérifier l'absence d'erreurs",
+-                    "Relancer le pipeline pour confirmer la disparition de la CVE dans les rapports Trivy et OWASP"
+-                ],
+-                "priority": 1,
+-                "severity": "CRITICAL",
+-                "resolution": "MANUEL",
+-                "codeExample": {
+-                    "after": "<dependency>\n  <groupId>org.apache.commons</groupId>\n  <artifactId>commons-text</artifactId>\n  <version>1.10.0</version>\n</dependency>",
+-                    "before": "<dependency>\n  <groupId>org.apache.commons</groupId>\n  <artifactId>commons-text</artifactId>\n  <version>1.9</version>\n</dependency>"
+-                },
+-                "verification": "mvn org.owasp:dependency-check-maven:check — vérifier que CVE-2022-42889 n'apparaît plus dans le rapport HTML généré dans target/dependency-check-report.html",
+-                "whyItMatters": "Avec un score CVSS de 9.8, cette vulnérabilité est exploitable à distance sans authentification. Un attaquant peut prendre le contrôle total du serveur, exfiltrer des données sensibles ou déployer un ransomware.",
+-                "remediationType": "DEVELOPER_ACTION_REQUIRED",
+-                "resolutionReason": "CVE conteneur/dépendance : mise à jour de l'image de base ou du pom.xml requise (manuel)",
+-                "estimatedEffortMinutes": 10
+-            },
+-            {
+-                "id": "SONAR-1",
+-                "file": "src/main/java/com/vermeg/app/ProductService.java",
+-                "line": 95,
+-                "rule": "java:S1192",
+-                "title": "Littéral \"not_found\" dupliqué 3 fois — définir une constante",
+-                "source": "SONARQUBE",
+-                "problem": "La chaîne de caractères \"not_found\" est répétée 3 fois dans le code au lieu d'être définie une seule fois comme constante. Si cette valeur doit changer, il faudra la modifier à plusieurs endroits, ce qui augmente le risque d'erreur et d'incohérence.",
+-                "blocking": true,
+-                "category": "CODE",
+-                "howToFix": [
+-                    "Ouvrir le fichier concerné à la ligne 95",
+-                    "Identifier toutes les occurrences de la chaîne \"not_found\" dans la classe",
+-                    "Déclarer une constante statique en haut de la classe : private static final String NOT_FOUND = \"not_found\";",
+-                    "Remplacer chaque occurrence de \"not_found\" par la constante NOT_FOUND",
+-                    "Lancer 'mvn compile' pour vérifier l'absence d'erreurs de compilation"
+-                ],
+-                "priority": 2,
+-                "severity": "CRITICAL",
+-                "resolution": "AUTO",
+-                "codeExample": {
+-                    "after": "private static final String NOT_FOUND = \"not_found\";\n...\nif (status.equals(NOT_FOUND)) { ... }\nreturn NOT_FOUND;\nthrow new Exception(NOT_FOUND);",
+-                    "before": "if (status.equals(\"not_found\")) { ... }\nreturn \"not_found\";\nthrow new Exception(\"not_found\");"
+-                },
+-                "verification": "Relancer l'analyse SonarQube et vérifier que la règle java:S1192 ne remonte plus sur ce fichier",
+-                "whyItMatters": "Un littéral dupliqué est une source classique de bugs lors des refactorisations. Si une occurrence est oubliée lors d'une modification, le comportement de l'application devient incohérent et difficile à déboguer.",
+-                "remediationType": "AUTO_FIX_ELIGIBLE",
+-                "resolutionReason": "Correction automatisable proposée ; aucune approbation, modification Git ou Pull Request n'est implicite",
+-                "estimatedEffortMinutes": 10
+-            },
+-            {
+-                "id": "SONAR-2",
+-                "file": "src/main/java/com/vermeg/app/ProductService.java",
+-                "line": 48,
+-                "rule": "java:S3776",
+-                "title": "Complexité cognitive trop élevée (16/15) — refactoriser la méthode",
+-                "source": "SONARQUBE",
+-                "problem": "La méthode à la ligne 48 a une complexité cognitive de 16, dépassant le seuil autorisé de 15. Cela signifie que la méthode contient trop de structures imbriquées (if/else, boucles, try/catch) qui la rendent difficile à lire, tester et maintenir.",
+-                "blocking": true,
+-                "category": "CODE",
+-                "howToFix": [
+-                    "Ouvrir le fichier à la ligne 48 et analyser la structure de la méthode",
+-                    "Identifier les blocs logiques indépendants (ex: validation, traitement, formatage) et les extraire dans des méthodes privées dédiées",
+-                    "Simplifier les conditions imbriquées en utilisant des retours anticipés (early return) ou des clauses de garde",
+-                    "Lancer 'mvn compile' pour vérifier l'absence d'erreurs",
+-                    "Relancer l'analyse SonarQube pour confirmer que la complexité est redescendue sous 15"
+-                ],
+-                "priority": 3,
+-                "severity": "CRITICAL",
+-                "resolution": "AUTO",
+-                "codeExample": {
+-                    "after": "public Result process(Input in) {\n  if (in == null || !in.isValid()) return Result.empty();\n  return processItems(in.items());\n}\nprivate Result processItems(List<Item> items) {\n  items.stream().filter(Item::active)...\n}",
+-                    "before": "public Result process(Input in) {\n  if (in != null) {\n    if (in.isValid()) {\n      for (Item i : in.items()) {\n        if (i.active()) { /* ... */ }\n      }\n    }\n  }\n}"
+-                },
+-                "verification": "Relancer l'analyse SonarQube et vérifier que la règle java:S3776 ne remonte plus sur la méthode ligne 48",
+-                "whyItMatters": "Une méthode trop complexe est difficile à tester unitairement et à déboguer. Elle augmente la probabilité d'introduire des régressions lors de modifications futures.",
+-                "remediationType": "AUTO_FIX_ELIGIBLE",
+-                "resolutionReason": "Correction automatisable proposée ; aucune approbation, modification Git ou Pull Request n'est implicite",
+-                "estimatedEffortMinutes": 25
+-            },
+-            {
+-                "id": "SONAR-3",
+-                "file": "src/main/java/com/vermeg/app/Product.java",
+-                "line": 10,
+-                "rule": "java:S6206",
+-                "title": "Refactoriser la classe Product en record Java",
+-                "source": "SONARQUBE",
+-                "problem": "La classe Product est une simple classe de données (POJO) avec les champs id, label, priceCents et stock. Depuis Java 16, les records permettent de déclarer ce type de classe de manière beaucoup plus concise, en éliminant le boilerplate (constructeur, getters, equals, hashCode, toString).",
+-                "blocking": false,
+-                "category": "CODE",
+-                "howToFix": [
+-                    "Ouvrir le fichier Product.java à la ligne 10",
+-                    "Remplacer la déclaration de classe par : public record Product(String id, String label, int priceCents, int stock) {}",
+-                    "Supprimer le constructeur, les getters, equals, hashCode et toString générés manuellement",
+-                    "Vérifier que les appels existants utilisent les accesseurs de record (ex: product.id() au lieu de product.getId())",
+-                    "Lancer 'mvn test' pour s'assurer qu'aucun test n'est cassé"
+-                ],
+-                "priority": 4,
+-                "severity": "MAJOR",
+-                "resolution": "AUTO",
+-                "codeExample": {
+-                    "after": "public record Product(String id, String label, int priceCents, int stock) {}",
+-                    "before": "public class Product {\n  private String id;\n  private String label;\n  private int priceCents;\n  private int stock;\n  // constructeur, getters, equals, hashCode...\n}"
+-                },
+-                "verification": "mvn test — tous les tests doivent passer ; relancer SonarQube pour confirmer la disparition de java:S6206",
+-                "whyItMatters": "Conserver un POJO verbeux là où un record suffit alourdit inutilement le code, augmente la surface de maintenance et peut introduire des bugs dans les méthodes equals/hashCode écrites manuellement.",
+-                "remediationType": "AUTO_FIX_ELIGIBLE",
+-                "resolutionReason": "Correction automatisable proposée ; aucune approbation, modification Git ou Pull Request n'est implicite",
+-                "estimatedEffortMinutes": 20
+-            },
+-            {
+-                "id": "SONAR-4",
+-                "file": "src/main/java/com/vermeg/app/ProductService.java",
+-                "line": 133,
+-                "rule": "java:S106",
+-                "title": "Remplacer System.out.println par un logger (ligne 133)",
+-                "source": "SONARQUBE",
+-                "problem": "L'utilisation de System.out.println pour afficher des informations de log est une mauvaise pratique en production. Les sorties console ne sont pas configurables, ne supportent pas les niveaux de log (DEBUG, INFO, WARN, ERROR) et ne peuvent pas être redirigées vers des systèmes de monitoring.",
+-                "blocking": false,
+-                "category": "CODE",
+-                "howToFix": [
+-                    "Ouvrir le fichier à la ligne 133",
+-                    "Ajouter un logger en haut de la classe : private static final Logger log = LoggerFactory.getLogger(ProductService.class);",
+-                    "Remplacer System.out.println(\"...\") par log.info(\"...\") (ou log.debug/warn/error selon le contexte)",
+-                    "Faire de même pour la ligne 138 (voir SONAR-5)",
+-                    "Lancer 'mvn compile' pour vérifier l'absence d'erreurs"
+-                ],
+-                "priority": 5,
+-                "severity": "MAJOR",
+-                "resolution": "AUTO",
+-                "codeExample": {
+-                    "after": "private static final Logger log = LoggerFactory.getLogger(ProductService.class);\n...\nlog.info(\"Product processed: {}\", product.id());",
+-                    "before": "System.out.println(\"Product processed: \" + product.getId());"
+-                },
+-                "verification": "mvn compile sans erreur ; relancer SonarQube et vérifier la disparition de java:S106 aux lignes 133 et 138",
+-                "whyItMatters": "En production, les logs via System.out sont souvent perdus ou mélangés avec d'autres sorties. L'absence de niveaux de log empêche le filtrage et peut exposer des informations sensibles dans des environnements non sécurisés.",
+-                "remediationType": "AUTO_FIX_ELIGIBLE",
+-                "resolutionReason": "Correction automatisable proposée ; aucune approbation, modification Git ou Pull Request n'est implicite",
+-                "estimatedEffortMinutes": 10
+-            },
+-            {
+-                "id": "SONAR-5",
+-                "file": "src/main/java/com/vermeg/app/ProductService.java",
+-                "line": 138,
+-                "rule": "java:S106",
+-                "title": "Remplacer System.out.println par un logger (ligne 138)",
+-                "source": "SONARQUBE",
+-                "problem": "Même problème qu'à la ligne 133 : un appel à System.out est utilisé pour logger une information à la ligne 138. Ces deux occurrences doivent être corrigées ensemble pour uniformiser la gestion des logs dans la classe.",
+-                "blocking": false,
+-                "category": "CODE",
+-                "howToFix": [
+-                    "Ouvrir le fichier à la ligne 138",
+-                    "Si le logger a déjà été ajouté lors de la correction de SONAR-4, remplacer directement System.out.println par log.info/warn/error selon le contexte",
+-                    "Lancer 'mvn compile' pour vérifier l'absence d'erreurs"
+-                ],
+-                "priority": 6,
+-                "severity": "MAJOR",
+-                "resolution": "AUTO",
+-                "codeExample": {
+-                    "after": "log.error(\"Error processing product\", e);",
+-                    "before": "System.out.println(\"Error: \" + e.getMessage());"
+-                },
+-                "verification": "mvn compile sans erreur ; relancer SonarQube et vérifier la disparition de java:S106 à la ligne 138",
+-                "whyItMatters": "Même risque que SONAR-4 : logs non configurables, non filtrables et potentiellement exposés en production.",
+-                "remediationType": "AUTO_FIX_ELIGIBLE",
+-                "resolutionReason": "Correction automatisable proposée ; aucune approbation, modification Git ou Pull Request n'est implicite",
+-                "estimatedEffortMinutes": 5
+-            },
+-            {
+-                "id": "SONAR-6",
+-                "file": "src/main/java/com/vermeg/app/ProductService.java",
+-                "line": 58,
+-                "rule": "java:S6204",
+-                "title": "Remplacer Stream.collect(Collectors.toList()) par Stream.toList()",
+-                "source": "SONARQUBE",
+-                "problem": "Depuis Java 16, la méthode Stream.toList() est disponible et remplace avantageusement .collect(Collectors.toList()). La nouvelle syntaxe est plus concise et retourne une liste non modifiable, ce qui est généralement le comportement souhaité pour les résultats de stream.",
+-                "blocking": false,
+-                "category": "CODE",
+-                "howToFix": [
+-                    "Ouvrir le fichier à la ligne 58",
+-                    "Remplacer .collect(Collectors.toList()) par .toList()",
+-                    "Vérifier que la liste résultante n'est pas modifiée (add, remove, set) dans le code appelant",
+-                    "Si la liste doit être modifiable, utiliser .collect(Collectors.toCollection(ArrayList::new)) à la place",
+-                    "Lancer 'mvn test' pour vérifier qu'aucun test n'est cassé"
+-                ],
+-                "priority": 7,
+-                "severity": "MAJOR",
+-                "resolution": "AUTO",
+-                "codeExample": {
+-                    "after": "List<Product> products = stream\n  .filter(p -> p.stock() > 0)\n  .toList();",
+-                    "before": "List<Product> products = stream\n  .filter(p -> p.stock() > 0)\n  .collect(Collectors.toList());"
+-                },
+-                "verification": "mvn test — tous les tests doivent passer ; relancer SonarQube pour confirmer la disparition de java:S6204",
+-                "whyItMatters": "Utiliser l'ancienne syntaxe alourdit le code inutilement. De plus, si le code aval tente de modifier la liste retournée par Stream.toList(), une UnsupportedOperationException sera levée — il faut donc s'assurer que la liste n'est pas modifiée après l'appel.",
+-                "remediationType": "AUTO_FIX_ELIGIBLE",
+-                "resolutionReason": "Correction automatisable proposée ; aucune approbation, modification Git ou Pull Request n'est implicite",
+-                "estimatedEffortMinutes": 5
+-            },
+-            {
+-                "id": "SONAR-7",
+-                "file": "src/main/java/com/vermeg/app/ProductService.java",
+-                "line": 77,
+-                "rule": "java:S5778",
+-                "title": "Lambda avec plusieurs invocations pouvant lever une exception — refactoriser",
+-                "source": "SONARQUBE",
+-                "problem": "La lambda utilisée dans un contexte de test (probablement assertThrows ou assertThatThrownBy) contient plusieurs appels susceptibles de lever une exception. Cela rend le test ambigu : on ne sait pas lequel des appels est censé lever l'exception attendue, ce qui peut masquer des bugs.",
+-                "blocking": false,
+-                "category": "CODE",
+-                "howToFix": [
+-                    "Ouvrir le fichier à la ligne 77",
+-                    "Identifier la lambda passée à assertThrows (ou équivalent)",
+-                    "Isoler l'unique appel censé lever l'exception dans la lambda",
+-                    "Déplacer les autres appels en dehors du bloc assertThrows, avant ou après",
+-                    "Lancer 'mvn test' pour vérifier que le test passe toujours"
+-                ],
+-                "priority": 8,
+-                "severity": "MAJOR",
+-                "resolution": "AUTO",
+-                "codeExample": {
+-                    "after": "service.init(config);\nassertThrows(Exception.class, () -> service.process(input));",
+-                    "before": "assertThrows(Exception.class, () -> {\n  service.init(config);\n  service.process(input);\n});"
+-                },
+-                "verification": "mvn test — tous les tests doivent passer ; relancer SonarQube pour confirmer la disparition de java:S5778 à la ligne 77",
+-                "whyItMatters": "Si la mauvaise instruction lève l'exception, le test passe à tort et un vrai bug peut passer inaperçu. La fiabilité des tests unitaires est compromise.",
+-                "remediationType": "AUTO_FIX_ELIGIBLE",
+-                "resolutionReason": "Correction automatisable proposée ; aucune approbation, modification Git ou Pull Request n'est implicite",
+-                "estimatedEffortMinutes": 10
+-            },
+-            {
+-                "id": "CVE-2025-48924",
+-                "file": "pom.xml",
+-                "line": 0,
+-                "rule": "CVE-2025-48924",
+-                "title": "Récursion non contrôlée dans commons-lang3 3.12.0",
+-                "source": "TRIVY",
+-                "problem": "La version 3.12.0 de commons-lang3 contient une vulnérabilité de récursion non contrôlée. Dans certaines conditions, un appel à des méthodes de la bibliothèque peut provoquer un débordement de pile (StackOverflowError), entraînant un déni de service.",
+-                "blocking": false,
+-                "category": "DEPENDENCY",
+-                "howToFix": [
+-                    "Ouvrir le fichier pom.xml",
+-                    "Localiser la dépendance org.apache.commons:commons-lang3 et mettre à jour la version vers 3.18.0 ou supérieure",
+-                    "Lancer 'mvn dependency:tree | grep commons-lang3' pour vérifier l'absence de version vulnérable transitive",
+-                    "Lancer 'mvn test' pour vérifier la compatibilité"
+-                ],
+-                "priority": 9,
+-                "severity": "MEDIUM",
+-                "resolution": "MANUEL",
+-                "codeExample": {
+-                    "after": "<dependency>\n  <groupId>org.apache.commons</groupId>\n  <artifactId>commons-lang3</artifactId>\n  <version>3.18.0</version>\n</dependency>",
+-                    "before": "<dependency>\n  <groupId>org.apache.commons</groupId>\n  <artifactId>commons-lang3</artifactId>\n  <version>3.12.0</version>\n</dependency>"
+-                },
+-                "verification": "mvn org.owasp:dependency-check-maven:check — vérifier que CVE-2025-48924 n'apparaît plus dans le rapport",
+-                "whyItMatters": "Bien que le score CVSS soit faible (3.7 selon Trivy, 5.3 selon OWASP), une entrée malveillante pourrait provoquer un crash de l'application et une indisponibilité du service.",
+-                "remediationType": "DEVELOPER_ACTION_REQUIRED",
+-                "resolutionReason": "CVE conteneur/dépendance : mise à jour de l'image de base ou du pom.xml requise (manuel)",
+-                "estimatedEffortMinutes": 10
+-            },
+-            {
+-                "id": "CVE-2026-85091",
+-                "file": "Dockerfile",
+-                "line": 0,
+-                "rule": "CVE-2026-85091",
+-                "title": "Heap buffer overflow dans zlib 1.3.2-r0 (image Docker)",
+-                "source": "TRIVY",
+-                "problem": "La version de zlib installée dans l'image Docker (1.3.2-r0) contient une vulnérabilité de débordement de tampon sur le tas (heap buffer overflow). Cette faille est présente dans les versions 1.3.1.2 à 1.3.2 et est corrigée en 1.3.2-r1.",
+-                "blocking": false,
+-                "category": "CONTAINER",
+-                "howToFix": [
+-                    "Ouvrir le Dockerfile du projet",
+-                    "Vérifier l'image de base utilisée (FROM ...) et s'assurer qu'elle est basée sur une distribution Alpine récente incluant zlib >= 1.3.2-r1",
+-                    "Si l'image de base est fixée, ajouter une instruction RUN apk upgrade --no-cache zlib pour forcer la mise à jour",
+-                    "Rebuilder l'image Docker : docker build -t app-test-pfe-vermeg:latest .",
+-                    "Relancer Trivy sur la nouvelle image pour confirmer la disparition de la CVE"
+-                ],
+-                "priority": 10,
+-                "severity": "MEDIUM",
+-                "resolution": "MANUEL",
+-                "codeExample": {
+-                    "after": "FROM eclipse-temurin:17-jre-alpine\nRUN apk upgrade --no-cache zlib",
+-                    "before": "FROM eclipse-temurin:17-jre-alpine\n# zlib 1.3.2-r0 inclus par défaut"
+-                },
+-                "verification": "trivy image app-test-pfe-vermeg:latest — vérifier que CVE-2026-85091 n'apparaît plus dans le rapport",
+-                "whyItMatters": "Un heap buffer overflow peut être exploité pour corrompre la mémoire du processus, provoquer un crash ou, dans les cas les plus graves, permettre l'exécution de code arbitraire au niveau du conteneur.",
+-                "remediationType": "DEVELOPER_ACTION_REQUIRED",
+-                "resolutionReason": "CVE conteneur/dépendance : mise à jour de l'image de base ou du pom.xml requise (manuel)",
+-                "estimatedEffortMinutes": 15
+-            }
+-        ],
+-        "fixOrder": [
+-            "CVE-2022-42889",
+-            "SONAR-1",
+-            "SONAR-2",
+-            "SONAR-3",
+-            "SONAR-4",
+-            "SONAR-5",
+-            "SONAR-6",
+-            "SONAR-7",
+-            "CVE-2025-48924",
+-            "CVE-2026-85091"
+-        ],
+-        "quickWins": [
+-            "SONAR-6",
+-            "SONAR-5",
+-            "CVE-2022-42889"
+-        ],
+-        "confidence": 0.82,
+-        "incidentId": "4af1f6f5-b8c2-481e-a31f-f76e859e1a13",
+-        "summaryForDeveloper": "Le pipeline s'est terminé avec succès mais plusieurs problèmes critiques nécessitent une attention immédiate. La vulnérabilité CVE-2022-42889 (CVSS 9.8) dans commons-text 1.9 expose l'application à une exécution de code à distance via l'interpolation de variables — c'est la priorité absolue. Côté code, deux code smells CRITICAL (littéral dupliqué et complexité cognitive excessive) dégradent la maintenabilité. Le plan d'attaque recommandé : corriger d'abord la CVE critique en mettant à jour commons-text, puis traiter les issues SonarQube CRITICAL, et enfin les MAJOR.",
+-        "totalEstimatedMinutes": 120
+-    },
+-    "sourceCommitSha": "f9597bf8e691fb6cb803e988a0cdca6febfbc32f"
+-}
+diff --git a/docs/demo-evidence/platform-remediation-tasks.txt b/docs/demo-evidence/platform-remediation-tasks.txt
+deleted file mode 100644
+index 4965852..0000000
+--- a/docs/demo-evidence/platform-remediation-tasks.txt
++++ /dev/null
+@@ -1,9 +0,0 @@
+- source |   ruleOrCve    | severity |      remediationType      | status | scannerStatus | lastSeenBuild |            composant             | installee | corrigee 
+---------+----------------+----------+---------------------------+--------+---------------+---------------+----------------------------------+-----------+----------
+- OWASP  | CVE-2022-42889 | CRITICAL | DEVELOPER_ACTION_REQUIRED | TODO   | DETECTED      |             2 | commons-text-1.9.jar             |           | 
+- OWASP  | CVE-2025-48924 | MEDIUM   | DEVELOPER_ACTION_REQUIRED | TODO   | DETECTED      |             2 | commons-lang3-3.12.0.jar         |           | 
+- TRIVY  | CVE-2022-42889 | CRITICAL | DEVELOPER_ACTION_REQUIRED | TODO   | DETECTED      |             2 | org.apache.commons:commons-text  | 1.9       | 1.10.0
+- TRIVY  | CVE-2025-48924 | MEDIUM   | DEVELOPER_ACTION_REQUIRED | TODO   | DETECTED      |             2 | org.apache.commons:commons-lang3 | 3.12.0    | 3.18.0
+- TRIVY  | CVE-2026-85091 | MEDIUM   | DEVELOPER_ACTION_REQUIRED | TODO   | DETECTED      |             2 | zlib                             | 1.3.2-r0  | 1.3.2-r1
+-(5 rows)
+-
+diff --git a/pom.xml b/pom.xml
+index 5b4755e..ceea945 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -44,7 +44,7 @@
+     <dependency>
+       <groupId>org.apache.commons</groupId>
+       <artifactId>commons-text</artifactId>
+-      <version>1.9</version>
++      <version>1.10.0</version>
+     </dependency>
+ 
+     <!-- DEMO-002 — pilotée par ${commons-lang3.version} ci-dessus. -->
