@@ -89,6 +89,16 @@ dépôt d'image Docker = `app-test-pfe-vermeg`. Le rattachement build → projet
 `GET /api/projects/internal/by-job/<jobName>` : si le nom du job diverge, le build n'est
 rattaché à rien.
 
+## Identité enregistrée
+
+| | |
+|---|---|
+| Dépôt | `https://github.com/souhaiel11/app-test-pfe-vermeg` |
+| Branche par défaut | `main` · étiquette de référence `baseline-vulnerable` |
+| Identifiant de projet | `078b5e76-c6f3-4014-9f52-ea5e4f435399` |
+| Job Jenkins · clé Sonar · dépôt d'image | `app-test-pfe-vermeg` |
+| Cible Azure | `aci-app-test-pfe-vermeg` *(configurée, non déployée)* |
+
 ## Documentation
 
 | Document | Contenu |
