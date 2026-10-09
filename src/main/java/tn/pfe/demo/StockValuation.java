@@ -47,9 +47,9 @@ public final class StockValuation {
             try (PreparedStatement insert = connection.prepareStatement(
                     "INSERT INTO product (id, price_cents, stock) VALUES (?, ?, ?)")) {
                 for (Product product : products) {
-                    insert.setString(1, product.getId());
-                    insert.setInt(2, product.getPriceCents());
-                    insert.setInt(3, product.getStock());
+                    insert.setString(1, product.id());
+                    insert.setInt(2, product.priceCents());
+                    insert.setInt(3, product.stock());
                     insert.addBatch();
                 }
                 insert.executeBatch();

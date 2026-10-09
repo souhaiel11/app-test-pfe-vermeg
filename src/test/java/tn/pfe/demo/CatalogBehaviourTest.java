@@ -44,8 +44,8 @@ class CatalogBehaviourTest {
     @Test
     @DisplayName("La valeur immobilisée d'un produit est le prix multiplié par le stock")
     void stockValueIsPriceTimesStock() {
-        assertEquals(2500, new Product("P-9", "x", 500, 5).getStockValueCents());
-        assertEquals(0, new Product("P-9", "x", 500, 0).getStockValueCents());
+        assertEquals(2500, new Product("P-9", "x", 500, 5).stockValueCents());
+        assertEquals(0, new Product("P-9", "x", 500, 0).stockValueCents());
     }
 
     @Test
@@ -74,7 +74,12 @@ class CatalogBehaviourTest {
     void unserializableTypeIsRejected() {
         // Un `toString()` de secours produirait un JSON faux mais syntaxiquement
         // valide — le pire des deux mondes.
-        assertThrows(IllegalArgumentException.class, () -> Json.write(new Object()));
+        //
+        // L'objet est construit AVANT le lambda : avec `() -> Json.write(new
+        // Object())`, deux appels pouvaient lever, et l'assertion n'aurait pas
+        // distingué lequel. Un test doit désigner précisément ce qu'il éprouve.
+        Object unsupported = new Object();
+        assertThrows(IllegalArgumentException.class, () -> Json.write(unsupported));
         assertThrows(IllegalArgumentException.class, () -> Json.ordered("impair"));
     }
 

@@ -25,7 +25,7 @@ public final class ProductCatalog {
     public static Optional<Product> byId(String id) {
         if (id == null) return Optional.empty();
         String wanted = id.trim();
-        return ITEMS.stream().filter(p -> p.getId().equals(wanted)).findFirst();
+        return ITEMS.stream().filter(p -> p.id().equals(wanted)).findFirst();
     }
 
     /**
@@ -39,7 +39,7 @@ public final class ProductCatalog {
 
     /** Somme des valeurs immobilisées, en centimes, calculée en mémoire. */
     public static int totalStockValueCents() {
-        return ITEMS.stream().mapToInt(Product::getStockValueCents).sum();
+        return ITEMS.stream().mapToInt(Product::stockValueCents).sum();
     }
 
     /**

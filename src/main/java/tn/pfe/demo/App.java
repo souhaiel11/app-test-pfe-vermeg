@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.logging.Logger;
 
 /**
  * APPLICATION DE DÉMONSTRATION INTENTIONNELLEMENT VULNÉRABLE — USAGE DE TEST UNIQUEMENT.
@@ -30,6 +30,15 @@ public final class App {
     public static final String APPLICATION_VERSION = "1.0.0";
 
     private static final String JSON_TYPE = "application/json; charset=utf-8";
+
+    /** Codes d'erreur, nommés une seule fois : une faute de frappe dans un
+     *  littéral répété serait invisible côté client. */
+    private static final String ERROR_NOT_FOUND = "not_found";
+    private static final String ERROR_METHOD_NOT_ALLOWED = "method_not_allowed";
+
+    /** Journalisation par le JDK : aucune dépendance de journalisation ajoutée,
+     *  donc aucune vulnérabilité supplémentaire à scanner. */
+    private static final Logger LOG = Logger.getLogger(App.class.getName());
 
     private App() { }
 
@@ -54,8 +63,11 @@ public final class App {
     }
 
     public static String products() {
+        // `toList()` plutôt que `collect(Collectors.toList())` : la liste est
+        // immuable, ce qui correspond à l'intention — personne ne doit modifier
+        // la réponse après construction.
         List<Map<String, Object>> items = ProductCatalog.all().stream()
-            .map(Json::product).collect(Collectors.toList());
+            .map(Json::product).toList();
         // Deux sources pour la même grandeur, nommées séparément : le calcul en
         // mémoire est toujours disponible ; l'agrégat SQL (DEMO-003) peut être
         // absent, et l'est alors explicitement — jamais remplacé en silence.
@@ -87,7 +99,7 @@ public final class App {
      */
     public static Response route(String method, String path) {
         if (!"GET".equals(method) && !"HEAD".equals(method)) {
-            return new Response(405, error("method_not_allowed"));
+            return new Response(405, error(ERROR_METHOD_NOT_ALLOWED));
         }
         if ("/health".equals(path)) return new Response(200, health());
         if ("/api/info".equals(path)) return new Response(200, info());
@@ -97,12 +109,12 @@ public final class App {
             String id = path.substring("/api/products/".length());
             // Un identifiant vide n'est pas « le premier produit » : c'est une requête
             // mal formée, et on le dit.
-            if (id.isBlank() || id.contains("/")) return new Response(404, error("not_found"));
+            if (id.isBlank() || id.contains("/")) return new Response(404, error(ERROR_NOT_FOUND));
             return product(id)
                 .map(body -> new Response(200, body))
-                .orElseGet(() -> new Response(404, error("not_found")));
+                .orElseGet(() -> new Response(404, error(ERROR_NOT_FOUND)));
         }
-        return new Response(404, error("not_found"));
+        return new Response(404, error(ERROR_NOT_FOUND));
     }
 
     public static HttpServer start(String bind, int port) throws IOException {
@@ -135,11 +147,11 @@ public final class App {
     }
 
     public static void main(String[] args) throws IOException {
-        System.out.println("AVERTISSEMENT — " + NOTICE);
+        LOG.warning(() -> "AVERTISSEMENT — " + NOTICE);
         String bind = System.getProperty("app.bind", "127.0.0.1");
         int port = Integer.parseInt(System.getProperty("app.port", "8080"));
         HttpServer server = start(bind, port);
         Runtime.getRuntime().addShutdownHook(new Thread(() -> server.stop(0)));
-        System.out.println(APPLICATION_NAME + " écoute sur " + bind + ":" + port);
+        LOG.info(() -> APPLICATION_NAME + " écoute sur " + bind + ":" + port);
     }
 }

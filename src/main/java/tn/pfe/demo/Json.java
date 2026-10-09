@@ -45,43 +45,60 @@ public final class Json {
         return out.toString();
     }
 
+    /**
+     * Aiguillage par type. Chaque forme composée est déléguée, de sorte que
+     * cette méthode reste une liste de cas lisible d'un seul coup d'œil — et
+     * que la complexité de chaque branche vive à côté de son propre code.
+     */
     private static void append(StringBuilder out, Object value) {
         if (value == null) { out.append("null"); return; }
-        if (value instanceof String s) { out.append('"').append(StringEscapeUtils.escapeJson(s)).append('"'); return; }
-        if (value instanceof Integer || value instanceof Long || value instanceof Boolean) { out.append(value); return; }
-        if (value instanceof Map<?, ?> map) {
-            out.append('{');
-            boolean first = true;
-            for (Map.Entry<?, ?> e : map.entrySet()) {
-                if (!first) out.append(',');
-                first = false;
-                out.append('"').append(StringEscapeUtils.escapeJson(String.valueOf(e.getKey()))).append("\":");
-                append(out, e.getValue());
-            }
-            out.append('}');
-            return;
-        }
-        if (value instanceof Collection<?> items) {
-            out.append('[');
-            boolean first = true;
-            for (Object item : items) {
-                if (!first) out.append(',');
-                first = false;
-                append(out, item);
-            }
-            out.append(']');
-            return;
-        }
+        if (value instanceof String text) { appendString(out, text); return; }
+        if (isPrimitive(value)) { out.append(value); return; }
+        if (value instanceof Map<?, ?> map) { appendObject(out, map); return; }
+        if (value instanceof Collection<?> items) { appendArray(out, items); return; }
         throw new IllegalArgumentException("Type non sérialisable : " + value.getClass().getName());
+    }
+
+    /** Les seuls scalaires acceptés. Tout le reste est refusé par `append`. */
+    private static boolean isPrimitive(Object value) {
+        return value instanceof Integer || value instanceof Long || value instanceof Boolean;
+    }
+
+    private static void appendString(StringBuilder out, String text) {
+        out.append('"').append(StringEscapeUtils.escapeJson(text)).append('"');
+    }
+
+    private static void appendObject(StringBuilder out, Map<?, ?> map) {
+        out.append('{');
+        boolean first = true;
+        for (Map.Entry<?, ?> entry : map.entrySet()) {
+            if (!first) out.append(',');
+            first = false;
+            appendString(out, String.valueOf(entry.getKey()));
+            out.append(':');
+            append(out, entry.getValue());
+        }
+        out.append('}');
+    }
+
+    private static void appendArray(StringBuilder out, Collection<?> items) {
+        out.append('[');
+        boolean first = true;
+        for (Object item : items) {
+            if (!first) out.append(',');
+            first = false;
+            append(out, item);
+        }
+        out.append(']');
     }
 
     /** Vue sérialisable d'un produit : champs explicites, jamais de réflexion implicite. */
     public static Map<String, Object> product(Product p) {
         return ordered(
-            "id", p.getId(),
-            "label", ProductCatalog.displayLabel(p.getLabel()),
-            "priceCents", p.getPriceCents(),
-            "stock", p.getStock(),
-            "stockValueCents", p.getStockValueCents());
+            "id", p.id(),
+            "label", ProductCatalog.displayLabel(p.label()),
+            "priceCents", p.priceCents(),
+            "stock", p.stock(),
+            "stockValueCents", p.stockValueCents());
     }
 }
