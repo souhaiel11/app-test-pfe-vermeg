@@ -81,15 +81,19 @@ lisible.
 mais ne prétend pas le corriger automatiquement — et c'est écrit noir sur blanc dans la
 matrice de capacités. »
 **Attendu** : les six cartes renseignées — contrôle qualité **OK**, 0 bug,
-0 vulnérabilité, **7** problèmes de maintenabilité, couverture **88,9 %**,
+0 vulnérabilité, **0** problème de maintenabilité, couverture **88,8 %**,
 statut d'analyse terminé.
-**À souligner** : « contrôle qualité OK » et « 7 code smells » ne se
-contredisent pas — les conditions du contrôle portent sur le **code nouveau**.
-Et les 7 constats sont étiquetés « correction assistée candidate », pas
-« automatisable » : un chemin existe via WF2, mais rien n'est garanti.
-**Anecdote utile** : au build précédent le contrôle valait **ERROR**, parce que
-la couverture du code nouveau était nulle. Il est passé à **OK** quand la
-couverture est arrivée. C'est un signal vivant, pas un décor.
+**Ce qu'il faut dire** : « Le code source est propre. Les vulnérabilités de ce
+projet sont dans ses **dépendances**, délibérément périmées — c'est là que la
+plateforme sait corriger automatiquement. »
+**Si le jury demande « et s'il y avait des défauts ? »** : il y en avait sept,
+relevés par cette même analyse. Ils ont été corrigés et **Sonar les a fermés
+lui-même** en `resolution=FIXED`. Montrer `PROBLEMES_ET_CORRECTIONS.md` § 5 :
+chaque règle, la correction, et pourquoi les laisser en place « pour avoir
+quelque chose à montrer » aurait été une mise en scène.
+**Anecdote utile** : à un build précédent le contrôle qualité valait **ERROR**,
+parce que la couverture du code nouveau était nulle. Il est passé à **OK** quand
+la couverture est arrivée. C'est un signal vivant, pas un décor.
 
 ### 6. Onglet Sécurité
 

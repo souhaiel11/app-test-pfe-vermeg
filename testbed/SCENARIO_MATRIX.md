@@ -116,6 +116,19 @@ vient de l'appelant ; aucune console H2 ; aucun serveur, aucun port ouvert.
 Rien n'a été ajouté au code pour fabriquer un défaut Sonar. L'analyse réelle rapporte ce
 qu'elle rapporte ; la démonstration le montre sans le mettre en scène.
 
+**État actuel : l'analyse est propre.** Les 7 constats que Sonar relevait étaient de
+véritables défauts de qualité dans le code de l'application — `System.out` au lieu d'un
+journal, un littéral répété trois fois, une complexité cognitive au-dessus du seuil, une
+classe de valeur qui aurait dû être un `record`. Ils ont été corrigés, et **SonarQube les
+a lui-même fermés en `resolution=FIXED`** : 0 issue ouverte, mesure `code_smells = 0`.
+
+Les laisser en place pour « avoir quelque chose à montrer » aurait été exactement le genre
+de mise en scène que ce projet refuse. Le récit de la soutenance y gagne même en clarté :
+**dépendances volontairement périmées, code source propre** — la plateforme démontre sa
+capacité là où elle est réellement qualifiée, et l'onglet Sonar prouve que l'analyse
+tourne, se corrèle au bon projet, et rapporte juste — y compris quand il n'y a rien à
+signaler.
+
 ---
 
 ## DEMO-005 — DAST / ZAP *(DETECTION_ONLY, constat réel)*

@@ -69,7 +69,15 @@
       "id": "DEMO-004",
       "detector": "sonarqube",
       "status": "DETECTION_ONLY",
-      "reason": "La chaîne WF6 n'a pas de stratégie de remédiation de code source qualifiée. Présenté comme détection, jamais comme correction automatique."
+      "reason": "La chaîne WF6 n'a pas de stratégie de remédiation de code source qualifiée. Présenté comme détection, jamais comme correction automatique.",
+      "observedFinding": "aucun — les 7 constats initiaux etaient de vrais defauts de qualite, corriges puis fermes par SonarQube en resolution=FIXED",
+      "measuredState": {
+        "openIssues": 0,
+        "codeSmells": 0,
+        "bugs": 0,
+        "vulnerabilities": 0,
+        "qualityGate": "OK"
+      }
     },
     {
       "id": "DEMO-005",
@@ -122,9 +130,9 @@
     "productionDifferentFileSupport": false
   },
   "measuredCoverage": {
-    "line": 92.3,
-    "branch": 82.4,
-    "sonarGlobal": 88.9,
+    "line": 92.1,
+    "branch": 82.9,
+    "sonarGlobal": 88.8,
     "source": "rapport XML JaCoCo du build, importe par Sonar et remonte dans tests.coverage"
   }
 }
